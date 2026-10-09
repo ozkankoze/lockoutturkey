@@ -11,9 +11,14 @@
   ],
   "short": "LT-G17 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) uygulamalarında maksimum koruma sağlamak için özel olarak tasarlanmıştır.…",
   "intro": [
-   "LT-G17 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) uygulamalarında maksimum koruma sağlamak için özel olarak tasarlanmıştır. Özellikle tesisat ve elektrikli ekipmanların güvenliğini sağlamak için uygundur."
+   "LT-G17 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) uygulamalarında maksimum koruma sağlamak için özel olarak tasarlanmıştır. Özellikle tesisat ve elektrikli ekipmanların güvenliğini sağlamak için uygundur.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı ve Hafif Yapı",
     "Yüksek kaliteli naylon gövde ve çelik kelepçe, uzun ömürlü kullanım sunar."
@@ -47,6 +52,10 @@
    [
     "Renk",
     "Turuncu"
+   ],
+   [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
    ],
    [
     "Kelepçe Çapı",
@@ -5010,9 +5019,14 @@
   ],
   "short": "LT-G01 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) prosedürleri için özel olarak tasarlanmıştır. Elektrik panoları, enerji kesme…",
   "intro": [
-   "LT-G01 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) prosedürleri için özel olarak tasarlanmıştır. Elektrik panoları, enerji kesme noktaları ve tehlikeli alanların güvenliğini sağlamak için kullanılır."
+   "LT-G01 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) prosedürleri için özel olarak tasarlanmıştır. Elektrik panoları, enerji kesme noktaları ve tehlikeli alanların güvenliğini sağlamak için kullanılır.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı Yapı",
     "Paslanmaz çelik kilit mekanizması ve darbelere dayanıklı ABS plastik gövde."
@@ -5042,6 +5056,10 @@
    [
     "Renk",
     "Kırmızı"
+   ],
+   [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
    ],
    [
     "Kelepçe Çapı",
@@ -5077,9 +5095,14 @@
   ],
   "short": "LT-G02 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) prosedürleri için özel olarak tasarlanmıştır. Elektrik panoları, enerji kesme…",
   "intro": [
-   "LT-G02 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) prosedürleri için özel olarak tasarlanmıştır. Elektrik panoları, enerji kesme noktaları ve tehlikeli alanların güvenliğini sağlamak için kullanılır."
+   "LT-G02 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) prosedürleri için özel olarak tasarlanmıştır. Elektrik panoları, enerji kesme noktaları ve tehlikeli alanların güvenliğini sağlamak için kullanılır.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı Yapı",
     "Paslanmaz çelik kilit mekanizması ve darbelere dayanıklı ABS plastik gövde."
@@ -5109,6 +5132,10 @@
    [
     "Renk",
     "Sarı"
+   ],
+   [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
    ],
    [
     "Kelepçe Çapı",
@@ -5144,9 +5171,14 @@
   ],
   "short": "LT-G03 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) prosedürleri için özel olarak tasarlanmıştır. Elektrik panoları, enerji kesme…",
   "intro": [
-   "LT-G03 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) prosedürleri için özel olarak tasarlanmıştır. Elektrik panoları, enerji kesme noktaları ve tehlikeli alanların güvenliğini sağlamak için kullanılır."
+   "LT-G03 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) prosedürleri için özel olarak tasarlanmıştır. Elektrik panoları, enerji kesme noktaları ve tehlikeli alanların güvenliğini sağlamak için kullanılır.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı Yapı",
     "Paslanmaz çelik kilit mekanizması ve darbelere dayanıklı ABS plastik gövde."
@@ -5176,6 +5208,10 @@
    [
     "Renk",
     "Mavi"
+   ],
+   [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
    ],
    [
     "Kelepçe Çapı",
@@ -5211,9 +5247,14 @@
   ],
   "short": "LT-G04 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) prosedürleri için özel olarak tasarlanmıştır. Elektrik panoları, enerji kesme…",
   "intro": [
-   "LT-G04 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) prosedürleri için özel olarak tasarlanmıştır. Elektrik panoları, enerji kesme noktaları ve tehlikeli alanların güvenliğini sağlamak için kullanılır."
+   "LT-G04 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) prosedürleri için özel olarak tasarlanmıştır. Elektrik panoları, enerji kesme noktaları ve tehlikeli alanların güvenliğini sağlamak için kullanılır.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı Yapı",
     "Paslanmaz çelik kilit mekanizması ve darbelere dayanıklı ABS plastik gövde."
@@ -5243,6 +5284,10 @@
    [
     "Renk",
     "Yeşil"
+   ],
+   [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
    ],
    [
     "Kelepçe Çapı",
@@ -5278,9 +5323,14 @@
   ],
   "short": "LT-G05 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) prosedürleri için özel olarak tasarlanmıştır. Elektrik panoları, enerji kesme…",
   "intro": [
-   "LT-G05 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) prosedürleri için özel olarak tasarlanmıştır. Elektrik panoları, enerji kesme noktaları ve tehlikeli alanların güvenliğini sağlamak için kullanılır."
+   "LT-G05 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) prosedürleri için özel olarak tasarlanmıştır. Elektrik panoları, enerji kesme noktaları ve tehlikeli alanların güvenliğini sağlamak için kullanılır.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı Yapı",
     "Paslanmaz çelik kilit mekanizması ve darbelere dayanıklı ABS plastik gövde."
@@ -5310,6 +5360,10 @@
    [
     "Renk",
     "Siyah"
+   ],
+   [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
    ],
    [
     "Kelepçe Çapı",
@@ -5345,9 +5399,14 @@
   ],
   "short": "LT-G06 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) prosedürleri için özel olarak tasarlanmıştır. Elektrik panoları, enerji kesme…",
   "intro": [
-   "LT-G06 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) prosedürleri için özel olarak tasarlanmıştır. Elektrik panoları, enerji kesme noktaları ve tehlikeli alanların güvenliğini sağlamak için kullanılır."
+   "LT-G06 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) prosedürleri için özel olarak tasarlanmıştır. Elektrik panoları, enerji kesme noktaları ve tehlikeli alanların güvenliğini sağlamak için kullanılır.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı Yapı",
     "Paslanmaz çelik kilit mekanizması ve darbelere dayanıklı ABS plastik gövde."
@@ -5377,6 +5436,10 @@
    [
     "Renk",
     "Beyaz"
+   ],
+   [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
    ],
    [
     "Kelepçe Çapı",
@@ -5412,9 +5475,14 @@
   ],
   "short": "LT-G07 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) prosedürleri için özel olarak tasarlanmıştır. Elektrik panoları, enerji kesme…",
   "intro": [
-   "LT-G07 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) prosedürleri için özel olarak tasarlanmıştır. Elektrik panoları, enerji kesme noktaları ve tehlikeli alanların güvenliğini sağlamak için kullanılır."
+   "LT-G07 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) prosedürleri için özel olarak tasarlanmıştır. Elektrik panoları, enerji kesme noktaları ve tehlikeli alanların güvenliğini sağlamak için kullanılır.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı Yapı",
     "Paslanmaz çelik kilit mekanizması ve darbelere dayanıklı ABS plastik gövde."
@@ -5444,6 +5512,10 @@
    [
     "Renk",
     "Turuncu"
+   ],
+   [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
    ],
    [
     "Kelepçe Çapı",
@@ -5479,9 +5551,14 @@
   ],
   "short": "LT-G08 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) prosedürleri için özel olarak tasarlanmıştır. Elektrik panoları, enerji kesme…",
   "intro": [
-   "LT-G08 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) prosedürleri için özel olarak tasarlanmıştır. Elektrik panoları, enerji kesme noktaları ve tehlikeli alanların güvenliğini sağlamak için kullanılır."
+   "LT-G08 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) prosedürleri için özel olarak tasarlanmıştır. Elektrik panoları, enerji kesme noktaları ve tehlikeli alanların güvenliğini sağlamak için kullanılır.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı Yapı",
     "Paslanmaz çelik kilit mekanizması ve darbelere dayanıklı ABS plastik gövde."
@@ -5511,6 +5588,10 @@
    [
     "Renk",
     "Mor"
+   ],
+   [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
    ],
    [
     "Kelepçe Çapı",
@@ -5546,9 +5627,14 @@
   ],
   "short": "LT-G11 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) uygulamalarında maksimum koruma…",
   "intro": [
-   "LT-G11 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) uygulamalarında maksimum koruma sağlamak için özel olarak tasarlanmıştır. Özellikle tesisat ve elektrikli ekipmanların güvenliğini sağlamak için uygundur."
+   "LT-G11 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) uygulamalarında maksimum koruma sağlamak için özel olarak tasarlanmıştır. Özellikle tesisat ve elektrikli ekipmanların güvenliğini sağlamak için uygundur.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı ve Hafif Yapı",
     "Yüksek kaliteli naylon gövde ve çelik kelepçe, uzun ömürlü kullanım sunar."
@@ -5582,6 +5668,10 @@
    [
     "Renk",
     "Kırmızı"
+   ],
+   [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
    ],
    [
     "Kelepçe Çapı",
@@ -5621,9 +5711,14 @@
   ],
   "short": "LT-G12 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) uygulamalarında maksimum koruma sağlamak için özel olarak tasarlanmıştır.…",
   "intro": [
-   "LT-G12 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) uygulamalarında maksimum koruma sağlamak için özel olarak tasarlanmıştır. Özellikle tesisat ve elektrikli ekipmanların güvenliğini sağlamak için uygundur."
+   "LT-G12 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) uygulamalarında maksimum koruma sağlamak için özel olarak tasarlanmıştır. Özellikle tesisat ve elektrikli ekipmanların güvenliğini sağlamak için uygundur.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı ve Hafif Yapı",
     "Yüksek kaliteli naylon gövde ve çelik kelepçe, uzun ömürlü kullanım sunar."
@@ -5657,6 +5752,10 @@
    [
     "Renk",
     "Sarı"
+   ],
+   [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
    ],
    [
     "Kelepçe Çapı",
@@ -5696,9 +5795,14 @@
   ],
   "short": "LT-G13 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) uygulamalarında maksimum koruma sağlamak için özel olarak tasarlanmıştır.…",
   "intro": [
-   "LT-G13 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) uygulamalarında maksimum koruma sağlamak için özel olarak tasarlanmıştır. Özellikle tesisat ve elektrikli ekipmanların güvenliğini sağlamak için uygundur."
+   "LT-G13 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) uygulamalarında maksimum koruma sağlamak için özel olarak tasarlanmıştır. Özellikle tesisat ve elektrikli ekipmanların güvenliğini sağlamak için uygundur.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı ve Hafif Yapı",
     "Yüksek kaliteli naylon gövde ve çelik kelepçe, uzun ömürlü kullanım sunar."
@@ -5732,6 +5836,10 @@
    [
     "Renk",
     "Mavi"
+   ],
+   [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
    ],
    [
     "Kelepçe Çapı",
@@ -5771,9 +5879,14 @@
   ],
   "short": "LT-G14 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) uygulamalarında maksimum koruma sağlamak için özel olarak tasarlanmıştır.…",
   "intro": [
-   "LT-G14 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) uygulamalarında maksimum koruma sağlamak için özel olarak tasarlanmıştır. Özellikle tesisat ve elektrikli ekipmanların güvenliğini sağlamak için uygundur."
+   "LT-G14 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) uygulamalarında maksimum koruma sağlamak için özel olarak tasarlanmıştır. Özellikle tesisat ve elektrikli ekipmanların güvenliğini sağlamak için uygundur.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı ve Hafif Yapı",
     "Yüksek kaliteli naylon gövde ve çelik kelepçe, uzun ömürlü kullanım sunar."
@@ -5807,6 +5920,10 @@
    [
     "Renk",
     "Yeşil"
+   ],
+   [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
    ],
    [
     "Kelepçe Çapı",
@@ -5846,9 +5963,14 @@
   ],
   "short": "LT-G15 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) uygulamalarında maksimum koruma sağlamak için özel olarak tasarlanmıştır.…",
   "intro": [
-   "LT-G15 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) uygulamalarında maksimum koruma sağlamak için özel olarak tasarlanmıştır. Özellikle tesisat ve elektrikli ekipmanların güvenliğini sağlamak için uygundur."
+   "LT-G15 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) uygulamalarında maksimum koruma sağlamak için özel olarak tasarlanmıştır. Özellikle tesisat ve elektrikli ekipmanların güvenliğini sağlamak için uygundur.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı ve Hafif Yapı",
     "Yüksek kaliteli naylon gövde ve çelik kelepçe, uzun ömürlü kullanım sunar."
@@ -5882,6 +6004,10 @@
    [
     "Renk",
     "Siyah"
+   ],
+   [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
    ],
    [
     "Kelepçe Çapı",
@@ -5921,9 +6047,14 @@
   ],
   "short": "LT-G16 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) uygulamalarında maksimum koruma…",
   "intro": [
-   "LT-G16 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) uygulamalarında maksimum koruma sağlamak için özel olarak tasarlanmıştır. Özellikle tesisat ve elektrikli ekipmanların güvenliğini sağlamak için uygundur."
+   "LT-G16 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) uygulamalarında maksimum koruma sağlamak için özel olarak tasarlanmıştır. Özellikle tesisat ve elektrikli ekipmanların güvenliğini sağlamak için uygundur.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı ve Hafif Yapı",
     "Yüksek kaliteli naylon gövde ve çelik kelepçe, uzun ömürlü kullanım sunar."
@@ -5957,6 +6088,10 @@
    [
     "Renk",
     "Beyaz"
+   ],
+   [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
    ],
    [
     "Kelepçe Çapı",
@@ -5996,9 +6131,14 @@
   ],
   "short": "LT-G18 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) uygulamalarında maksimum koruma sağlamak için özel olarak tasarlanmıştır.…",
   "intro": [
-   "LT-G18 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) uygulamalarında maksimum koruma sağlamak için özel olarak tasarlanmıştır. Özellikle tesisat ve elektrikli ekipmanların güvenliğini sağlamak için uygundur."
+   "LT-G18 Emniyet Asma Kilidi, iş güvenliği ve kilitleme/etiketleme (LOTO) uygulamalarında maksimum koruma sağlamak için özel olarak tasarlanmıştır. Özellikle tesisat ve elektrikli ekipmanların güvenliğini sağlamak için uygundur.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı ve Hafif Yapı",
     "Yüksek kaliteli naylon gövde ve çelik kelepçe, uzun ömürlü kullanım sunar."
@@ -6032,6 +6172,10 @@
    [
     "Renk",
     "Mor"
+   ],
+   [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
    ],
    [
     "Kelepçe Çapı",
@@ -6071,9 +6215,14 @@
   ],
   "short": "LT-G21-RED, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için özel olarak tasarlanmış yüksek dayanıklılığa sahip bir emniyet asma…",
   "intro": [
-   "LT-G21-RED, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için özel olarak tasarlanmış yüksek dayanıklılığa sahip bir emniyet asma kilididir. 76 mm çelik çene, kimyasallara ve aşırı sıcaklıklara dayanıklı mühendislik plastiği gövde ve kendiliğinden elastik kilit mekanizması ile maksimum koruma sağlar."
+   "LT-G21-RED, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için özel olarak tasarlanmış yüksek dayanıklılığa sahip bir emniyet asma kilididir. 76 mm çelik çene, kimyasallara ve aşırı sıcaklıklara dayanıklı mühendislik plastiği gövde ve kendiliğinden elastik kilit mekanizması ile maksimum koruma sağlar.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı Malzeme",
     "Kilit gövdesi, sıcaklık farkına (-57°C ile +177°C arası) ve darbeye dayanıklı mühendislik plastiği takviyeli naylon PA'dan üretilmiştir. Metal kelepçe krom kaplamadır ve yüksek mukavemet sağlar."
@@ -6115,6 +6264,10 @@
    [
     "Özelleştirilebilir Pirinç Silindir",
     "Her kilit için 1 anahtar ile gelir."
+   ],
+   [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
    ],
    [
     "Malzeme",
@@ -6162,9 +6315,14 @@
   ],
   "short": "LT-G22-YLW, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için özel olarak tasarlanmış yüksek dayanıklılığa sahip bir emniyet asma…",
   "intro": [
-   "LT-G22-YLW, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için özel olarak tasarlanmış yüksek dayanıklılığa sahip bir emniyet asma kilididir. 76 mm çelik çene, kimyasallara ve aşırı sıcaklıklara dayanıklı mühendislik plastiği gövde ve kendiliğinden elastik kilit mekanizması ile maksimum koruma sağlar."
+   "LT-G22-YLW, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için özel olarak tasarlanmış yüksek dayanıklılığa sahip bir emniyet asma kilididir. 76 mm çelik çene, kimyasallara ve aşırı sıcaklıklara dayanıklı mühendislik plastiği gövde ve kendiliğinden elastik kilit mekanizması ile maksimum koruma sağlar.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı Malzeme",
     "Kilit gövdesi, sıcaklık farkına (-57°C ile +177°C arası) ve darbeye dayanıklı mühendislik plastiği takviyeli naylon PA'dan üretilmiştir. Metal kelepçe krom kaplamadır ve yüksek mukavemet sağlar."
@@ -6206,6 +6364,10 @@
    [
     "Özelleştirilebilir Pirinç Silindir",
     "Her kilit için 1 anahtar ile gelir."
+   ],
+   [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
    ],
    [
     "Malzeme",
@@ -6253,9 +6415,14 @@
   ],
   "short": "LT-G23-BLUE, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için özel olarak tasarlanmış yüksek dayanıklılığa sahip bir emniyet…",
   "intro": [
-   "LT-G23-BLUE, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için özel olarak tasarlanmış yüksek dayanıklılığa sahip bir emniyet asma kilididir. 76 mm çelik çene, kimyasallara ve aşırı sıcaklıklara dayanıklı mühendislik plastiği gövde ve kendiliğinden elastik kilit mekanizması ile maksimum koruma sağlar."
+   "LT-G23-BLUE, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için özel olarak tasarlanmış yüksek dayanıklılığa sahip bir emniyet asma kilididir. 76 mm çelik çene, kimyasallara ve aşırı sıcaklıklara dayanıklı mühendislik plastiği gövde ve kendiliğinden elastik kilit mekanizması ile maksimum koruma sağlar.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı Malzeme",
     "Kilit gövdesi, sıcaklık farkına (-57°C ile +177°C arası) ve darbeye dayanıklı mühendislik plastiği takviyeli naylon PA'dan üretilmiştir. Metal kelepçe krom kaplamadır ve yüksek mukavemet sağlar."
@@ -6297,6 +6464,10 @@
    [
     "Özelleştirilebilir Pirinç Silindir",
     "Her kilit için 1 anahtar ile gelir."
+   ],
+   [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
    ],
    [
     "Malzeme",
@@ -6344,9 +6515,14 @@
   ],
   "short": "LT-G24-GRN, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için özel olarak tasarlanmış yüksek dayanıklılığa sahip bir emniyet asma…",
   "intro": [
-   "LT-G24-GRN, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için özel olarak tasarlanmış yüksek dayanıklılığa sahip bir emniyet asma kilididir. 76 mm çelik çene, kimyasallara ve aşırı sıcaklıklara dayanıklı mühendislik plastiği gövde ve kendiliğinden elastik kilit mekanizması ile maksimum koruma sağlar."
+   "LT-G24-GRN, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için özel olarak tasarlanmış yüksek dayanıklılığa sahip bir emniyet asma kilididir. 76 mm çelik çene, kimyasallara ve aşırı sıcaklıklara dayanıklı mühendislik plastiği gövde ve kendiliğinden elastik kilit mekanizması ile maksimum koruma sağlar.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı Malzeme",
     "Kilit gövdesi, sıcaklık farkına (-57°C ile +177°C arası) ve darbeye dayanıklı mühendislik plastiği takviyeli naylon PA'dan üretilmiştir. Metal kelepçe krom kaplamadır ve yüksek mukavemet sağlar."
@@ -6388,6 +6564,10 @@
    [
     "Özelleştirilebilir Pirinç Silindir",
     "Her kilit için 1 anahtar ile gelir."
+   ],
+   [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
    ],
    [
     "Malzeme",
@@ -6435,9 +6615,14 @@
   ],
   "short": "LT-G25-BLK, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için özel olarak tasarlanmış yüksek dayanıklılığa sahip bir emniyet asma…",
   "intro": [
-   "LT-G25-BLK, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için özel olarak tasarlanmış yüksek dayanıklılığa sahip bir emniyet asma kilididir. 76 mm çelik çene, kimyasallara ve aşırı sıcaklıklara dayanıklı mühendislik plastiği gövde ve kendiliğinden elastik kilit mekanizması ile maksimum koruma sağlar."
+   "LT-G25-BLK, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için özel olarak tasarlanmış yüksek dayanıklılığa sahip bir emniyet asma kilididir. 76 mm çelik çene, kimyasallara ve aşırı sıcaklıklara dayanıklı mühendislik plastiği gövde ve kendiliğinden elastik kilit mekanizması ile maksimum koruma sağlar.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı Malzeme",
     "Kilit gövdesi, sıcaklık farkına (-57°C ile +177°C arası) ve darbeye dayanıklı mühendislik plastiği takviyeli naylon PA'dan üretilmiştir. Metal kelepçe krom kaplamadır ve yüksek mukavemet sağlar."
@@ -6479,6 +6664,10 @@
    [
     "Özelleştirilebilir Pirinç Silindir",
     "Her kilit için 1 anahtar ile gelir."
+   ],
+   [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
    ],
    [
     "Malzeme",
@@ -6526,9 +6715,14 @@
   ],
   "short": "LT-G26-WHITE, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için özel olarak tasarlanmış yüksek dayanıklılığa sahip bir emniyet…",
   "intro": [
-   "LT-G26-WHITE, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için özel olarak tasarlanmış yüksek dayanıklılığa sahip bir emniyet asma kilididir. 76 mm çelik çene, kimyasallara ve aşırı sıcaklıklara dayanıklı mühendislik plastiği gövde ve kendiliğinden elastik kilit mekanizması ile maksimum koruma sağlar."
+   "LT-G26-WHITE, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için özel olarak tasarlanmış yüksek dayanıklılığa sahip bir emniyet asma kilididir. 76 mm çelik çene, kimyasallara ve aşırı sıcaklıklara dayanıklı mühendislik plastiği gövde ve kendiliğinden elastik kilit mekanizması ile maksimum koruma sağlar.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı Malzeme",
     "Kilit gövdesi, sıcaklık farkına (-57°C ile +177°C arası) ve darbeye dayanıklı mühendislik plastiği takviyeli naylon PA'dan üretilmiştir. Metal kelepçe krom kaplamadır ve yüksek mukavemet sağlar."
@@ -6570,6 +6764,10 @@
    [
     "Özelleştirilebilir Pirinç Silindir",
     "Her kilit için 1 anahtar ile gelir."
+   ],
+   [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
    ],
    [
     "Malzeme",
@@ -6617,9 +6815,14 @@
   ],
   "short": "LT-G27-ORJ, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için özel olarak…",
   "intro": [
-   "LT-G27-ORJ, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için özel olarak tasarlanmış yüksek dayanıklılığa sahip bir emniyet asma kilididir. 76 mm çelik çene, kimyasallara ve aşırı sıcaklıklara dayanıklı mühendislik plastiği gövde ve kendiliğinden elastik kilit mekanizması ile maksimum koruma sağlar."
+   "LT-G27-ORJ, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için özel olarak tasarlanmış yüksek dayanıklılığa sahip bir emniyet asma kilididir. 76 mm çelik çene, kimyasallara ve aşırı sıcaklıklara dayanıklı mühendislik plastiği gövde ve kendiliğinden elastik kilit mekanizması ile maksimum koruma sağlar.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı Malzeme",
     "Kilit gövdesi, sıcaklık farkına (-57°C ile +177°C arası) ve darbeye dayanıklı mühendislik plastiği takviyeli naylon PA'dan üretilmiştir. Metal kelepçe krom kaplamadır ve yüksek mukavemet sağlar."
@@ -6661,6 +6864,10 @@
    [
     "Özelleştirilebilir Pirinç Silindir",
     "Her kilit için 1 anahtar ile gelir."
+   ],
+   [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
    ],
    [
     "Malzeme",
@@ -6708,9 +6915,14 @@
   ],
   "short": "LT-G28-PRP, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için özel olarak…",
   "intro": [
-   "LT-G28-PRP, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için özel olarak tasarlanmış yüksek dayanıklılığa sahip bir emniyet asma kilididir. 76 mm çelik çene, kimyasallara ve aşırı sıcaklıklara dayanıklı mühendislik plastiği gövde ve kendiliğinden elastik kilit mekanizması ile maksimum koruma sağlar."
+   "LT-G28-PRP, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için özel olarak tasarlanmış yüksek dayanıklılığa sahip bir emniyet asma kilididir. 76 mm çelik çene, kimyasallara ve aşırı sıcaklıklara dayanıklı mühendislik plastiği gövde ve kendiliğinden elastik kilit mekanizması ile maksimum koruma sağlar.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı Malzeme",
     "Kilit gövdesi, sıcaklık farkına (-57°C ile +177°C arası) ve darbeye dayanıklı mühendislik plastiği takviyeli naylon PA'dan üretilmiştir. Metal kelepçe krom kaplamadır ve yüksek mukavemet sağlar."
@@ -6752,6 +6964,10 @@
    [
     "Özelleştirilebilir Pirinç Silindir",
     "Her kilit için 1 anahtar ile gelir."
+   ],
+   [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
    ],
    [
     "Malzeme",
@@ -6799,9 +7015,14 @@
   ],
   "short": "LT-G31-RED, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için tasarlanmış, yüksek…",
   "intro": [
-   "LT-G31-RED, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için tasarlanmış, yüksek dayanıklılığa sahip bir emniyet asma kilididir. Mühendislik plastiği takviyeli naylon PA gövde ve 76 mm plastik çene, zorlu çalışma ortamlarında uzun ömürlü kullanım sunar."
+   "LT-G31-RED, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için tasarlanmış, yüksek dayanıklılığa sahip bir emniyet asma kilididir. Mühendislik plastiği takviyeli naylon PA gövde ve 76 mm plastik çene, zorlu çalışma ortamlarında uzun ömürlü kullanım sunar.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı Malzeme",
     "Kilit gövdesi, sıcaklık farkına (-30°C~+120°C) ve darbeye dayanıklı, entegre bir kabuk tasarımına sahip mühendislik plastiği takviyeli naylon PA'dan üretilmiştir."
@@ -6845,6 +7066,10 @@
     "Kırmızı"
    ],
    [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
+   ],
+   [
     "Kelepçe Çapı",
     "6.2 mm"
    ],
@@ -6882,9 +7107,14 @@
   ],
   "short": "LT-G32-YLW, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için tasarlanmış, yüksek…",
   "intro": [
-   "LT-G32-YLW, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için tasarlanmış, yüksek dayanıklılığa sahip bir emniyet asma kilididir. Mühendislik plastiği takviyeli naylon PA gövde ve 76 mm plastik çene, zorlu çalışma ortamlarında uzun ömürlü kullanım sunar."
+   "LT-G32-YLW, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için tasarlanmış, yüksek dayanıklılığa sahip bir emniyet asma kilididir. Mühendislik plastiği takviyeli naylon PA gövde ve 76 mm plastik çene, zorlu çalışma ortamlarında uzun ömürlü kullanım sunar.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı Malzeme",
     "Kilit gövdesi, sıcaklık farkına (-30°C~+120°C) ve darbeye dayanıklı, entegre bir kabuk tasarımına sahip mühendislik plastiği takviyeli naylon PA'dan üretilmiştir."
@@ -6928,6 +7158,10 @@
     "Sarı"
    ],
    [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
+   ],
+   [
     "Kelepçe Çapı",
     "6.2 mm"
    ],
@@ -6965,9 +7199,14 @@
   ],
   "short": "LT-G33-BLUE, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için tasarlanmış, yüksek dayanıklılığa sahip bir emniyet asma…",
   "intro": [
-   "LT-G33-BLUE, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için tasarlanmış, yüksek dayanıklılığa sahip bir emniyet asma kilididir. Mühendislik plastiği takviyeli naylon PA gövde ve 76 mm plastik çene, zorlu çalışma ortamlarında uzun ömürlü kullanım sunar."
+   "LT-G33-BLUE, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için tasarlanmış, yüksek dayanıklılığa sahip bir emniyet asma kilididir. Mühendislik plastiği takviyeli naylon PA gövde ve 76 mm plastik çene, zorlu çalışma ortamlarında uzun ömürlü kullanım sunar.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı Malzeme",
     "Kilit gövdesi, sıcaklık farkına (-30°C~+120°C) ve darbeye dayanıklı, entegre bir kabuk tasarımına sahip mühendislik plastiği takviyeli naylon PA'dan üretilmiştir."
@@ -7011,6 +7250,10 @@
     "Mavi"
    ],
    [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
+   ],
+   [
     "Kelepçe Çapı",
     "6.2 mm"
    ],
@@ -7048,9 +7291,14 @@
   ],
   "short": "LT-G34-GRN, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için tasarlanmış, yüksek dayanıklılığa sahip bir emniyet asma kilididir.…",
   "intro": [
-   "LT-G34-GRN, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için tasarlanmış, yüksek dayanıklılığa sahip bir emniyet asma kilididir. Mühendislik plastiği takviyeli naylon PA gövde ve 76 mm plastik çene, zorlu çalışma ortamlarında uzun ömürlü kullanım sunar."
+   "LT-G34-GRN, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için tasarlanmış, yüksek dayanıklılığa sahip bir emniyet asma kilididir. Mühendislik plastiği takviyeli naylon PA gövde ve 76 mm plastik çene, zorlu çalışma ortamlarında uzun ömürlü kullanım sunar.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı Malzeme",
     "Kilit gövdesi, sıcaklık farkına (-30°C~+120°C) ve darbeye dayanıklı, entegre bir kabuk tasarımına sahip mühendislik plastiği takviyeli naylon PA'dan üretilmiştir."
@@ -7094,6 +7342,10 @@
     "Yeşil"
    ],
    [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
+   ],
+   [
     "Kelepçe Çapı",
     "6.2 mm"
    ],
@@ -7131,9 +7383,14 @@
   ],
   "short": "LT-G35-BLK, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için tasarlanmış, yüksek…",
   "intro": [
-   "LT-G35-BLK, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için tasarlanmış, yüksek dayanıklılığa sahip bir emniyet asma kilididir. Mühendislik plastiği takviyeli naylon PA gövde ve 76 mm plastik çene, zorlu çalışma ortamlarında uzun ömürlü kullanım sunar."
+   "LT-G35-BLK, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için tasarlanmış, yüksek dayanıklılığa sahip bir emniyet asma kilididir. Mühendislik plastiği takviyeli naylon PA gövde ve 76 mm plastik çene, zorlu çalışma ortamlarında uzun ömürlü kullanım sunar.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı Malzeme",
     "Kilit gövdesi, sıcaklık farkına (-30°C~+120°C) ve darbeye dayanıklı, entegre bir kabuk tasarımına sahip mühendislik plastiği takviyeli naylon PA'dan üretilmiştir."
@@ -7177,6 +7434,10 @@
     "Siyah"
    ],
    [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
+   ],
+   [
     "Kelepçe Çapı",
     "6.2 mm"
    ],
@@ -7215,9 +7476,15 @@
   "short": "Lockout Turkey, iş güvenliği kilitleme ve etiketleme (Lockout & Tagout) ürünlerinde uzmanlaşmış profesyonel bir üreticidir.",
   "intro": [
    "Lockout Turkey, iş güvenliği kilitleme ve etiketleme (Lockout & Tagout) ürünlerinde uzmanlaşmış profesyonel bir üreticidir. 11 yıllık tasarım ve üretim deneyimine sahip olan Lockout Turkey, geniş ürün yelpazesi ile birçok firmaya hizmet vermektedir.",
-   "Asma kilitler, güçlendirilmiş naylondan üretilmiştir ve pek çok renk seçeneği mevcuttur: Kırmızı, sarı, mavi, yeşil, beyaz, siyah, turuncu ve mor. İş güvenliği yönetiminde farklı kategoriler için uygun olup, müşteri taleplerine göre özel renk seçenekleriyle üretilebilir."
+   "Asma kilitler, güçlendirilmiş naylondan üretilmiştir ve pek çok renk seçeneği mevcuttur: Kırmızı, sarı, mavi, yeşil, beyaz, siyah, turuncu ve mor. İş güvenliği yönetiminde farklı kategoriler için uygun olup, müşteri taleplerine göre özel renk seçenekleriyle üretilebilir.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
-  "features": [],
+  "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ]
+  ],
   "specs": [
    [
     "Telefon",
@@ -7226,6 +7493,10 @@
    [
     "Telefon 2",
     "+90 551 942 62 12"
+   ],
+   [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
    ],
    [
     "WhatsApp",
@@ -7258,9 +7529,14 @@
   ],
   "short": "LT-G37-ORJ, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için tasarlanmış, yüksek dayanıklılığa sahip bir emniyet asma kilididir.…",
   "intro": [
-   "LT-G37-ORJ, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için tasarlanmış, yüksek dayanıklılığa sahip bir emniyet asma kilididir. Mühendislik plastiği takviyeli naylon PA gövde ve 76 mm plastik çene, zorlu çalışma ortamlarında uzun ömürlü kullanım sunar."
+   "LT-G37-ORJ, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için tasarlanmış, yüksek dayanıklılığa sahip bir emniyet asma kilididir. Mühendislik plastiği takviyeli naylon PA gövde ve 76 mm plastik çene, zorlu çalışma ortamlarında uzun ömürlü kullanım sunar.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı Malzeme",
     "Kilit gövdesi, sıcaklık farkına (-30°C~+120°C) ve darbeye dayanıklı, entegre bir kabuk tasarımına sahip mühendislik plastiği takviyeli naylon PA'dan üretilmiştir."
@@ -7304,6 +7580,10 @@
     "Turuncu"
    ],
    [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
+   ],
+   [
     "Kelepçe Çapı",
     "6.2 mm"
    ],
@@ -7341,9 +7621,14 @@
   ],
   "short": "LT-G38-PRP, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için tasarlanmış, yüksek…",
   "intro": [
-   "LT-G38-PRP, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için tasarlanmış, yüksek dayanıklılığa sahip bir emniyet asma kilididir. Mühendislik plastiği takviyeli naylon PA gövde ve 76 mm plastik çene, zorlu çalışma ortamlarında uzun ömürlü kullanım sunar."
+   "LT-G38-PRP, endüstriyel güvenlik ve LOTO (Kilitleme-Etiketleme) prosedürleri için tasarlanmış, yüksek dayanıklılığa sahip bir emniyet asma kilididir. Mühendislik plastiği takviyeli naylon PA gövde ve 76 mm plastik çene, zorlu çalışma ortamlarında uzun ömürlü kullanım sunar.",
+   "Toz korumalı modelde anahtar yuvası, kullanılmadığında menteşeli bir kapakla kapanır; böylece toz, talaş ve nem kilit mekanizmasına girmez."
   ],
   "features": [
+   [
+    "Toz Koruma Kapağı",
+    "Anahtar yuvasını kapatan menteşeli kapak; toz, kir ve neme karşı kilit silindirini korur, zorlu sahalarda ömrü uzatır."
+   ],
    [
     "Dayanıklı Malzeme",
     "Kilit gövdesi, sıcaklık farkına (-30°C~+120°C) ve darbeye dayanıklı, entegre bir kabuk tasarımına sahip mühendislik plastiği takviyeli naylon PA'dan üretilmiştir."
@@ -7385,6 +7670,10 @@
    [
     "Renk",
     "Mor"
+   ],
+   [
+    "Toz Koruması",
+    "Var – menteşeli anahtar yuvası kapağı"
    ],
    [
     "Kelepçe Çapı",
