@@ -70,10 +70,35 @@ pages.append(f'''<section class="page"><div class="hd"><span class="eyebrow">İ�
 <div class="howto"><h3>Nasıl teklif alırım?</h3><p>Katalogdaki ürün kodlarını (ör. LT-G01) adetleriyle birlikte WhatsApp ya da e-posta ile iletmeniz yeterli. Kilitlenecek noktanın fotoğrafını gönderirseniz uygun ürünü biz belirleriz. Kişisel kilitlerde renk, anahtar sistemi ve isim/numara baskısı seçenekleri sunulur.</p>
 <p><b>{e(SITE["phone"])}</b> · <b>{e(SITE["email"])}</b> · {e(SITE["address"])}</p></div>{foot(n)}</section>''')
 
+def set_card(p):
+    name = p["name"][len(p["code"]):].strip()
+    src = thumb(p)
+    if p["kit"]:
+        body = '<div class="kt">Set içeriği%s</div><ul class="kl">%s</ul>' % ((" · " + e(p["total"])) if p["total"] else "", "".join('<li><b>%d×</b> %s</li>' % (q, e(n)) for q, n in p["kit"]))
+    else:
+        body = '<p class="ks">%s</p>' % e(p["short"])
+    return ('<div class="setc"><div class="im">%s</div><div class="sx"><div class="cd">%s</div><div class="nm">%s</div>%s</div></div>'
+            % ('<img src="%s">' % src if src else "", e(p["code"]), e(name), body))
+
 PER_FIRST, PER = 6, 9
 for c in CATEGORIES:
     items = by[c["slug"]]
-    chunks = [items[:PER_FIRST]] + [items[i:i + PER] for i in range(PER_FIRST, len(items), PER)]
+    is_set = c["slug"] == "loto-setleri"
+    if is_set:
+        import math
+        def est(p):
+            if not p["kit"]: return 62
+            lines = sum(1 + (len(n) > 34) for q, n in p["kit"])
+            return max(62, 26 + math.ceil(lines / 2) * 3.55)
+        chunks, cur, room = [], [], 190
+        for p in items:
+            h = est(p) + 5
+            if cur and h > room:
+                chunks.append(cur); cur, room = [], 245
+            cur.append(p); room -= h
+        if cur: chunks.append(cur)
+    else:
+        chunks = [items[:PER_FIRST]] + [items[i:i + PER] for i in range(PER_FIRST, len(items), PER)]
     for k, ch in enumerate(chunks):
         if not ch: continue
         n += 1
@@ -82,7 +107,10 @@ for c in CATEGORIES:
             head = '<div class="cat-hd"><span class="eyebrow">%d ÜRÜN</span><h2>%s</h2><p>%s</p></div>' % (len(items), e(c["name"]), e(c["intro"]))
         else:
             head = '<div class="cat-run">%s <span>· devam</span></div>' % e(c["name"])
-        pages.append('<section class="page">%s<div class="grid">%s</div>%s</section>' % (head, "".join(card(p) for p in ch), foot(n)))
+        if is_set:
+            pages.append('<section class="page">%s<div class="sets">%s</div>%s</section>' % (head, "".join(set_card(p) for p in ch), foot(n)))
+        else:
+            pages.append('<section class="page">%s<div class="grid">%s</div>%s</section>' % (head, "".join(card(p) for p in ch), foot(n)))
 
 n += 1
 pages.append(f'''<section class="page back"><div>{LOGO}</div>
@@ -137,6 +165,18 @@ h1, h2, h3 { font-family: 'Barlow Condensed', Arial, sans-serif; font-weight: 70
 .card .cd { font-family: 'IBM Plex Mono', monospace; font-size: 8.5pt; font-weight: 600; color: var(--red); margin-top: 1mm; }
 .card .nm { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 11.5pt; line-height: 1.08; }
 .card ul { margin: 0; padding: 0; list-style: none; font-size: 7.6pt; line-height: 1.35; color: var(--muted); }
+.sets { display: flex; flex-direction: column; gap: 5mm; }
+.setc { display: flex; gap: 6mm; border: 1px solid var(--line); border-radius: 3mm; padding: 4mm; min-height: 62mm; break-inside: avoid; }
+.setc .im { width: 62mm; height: 54mm; flex: none; align-self: center; display: flex; align-items: center; justify-content: center; }
+.setc .im img { max-width: 100%; max-height: 100%; }
+.setc .sx { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1.5mm; }
+.setc .cd { font-family: 'IBM Plex Mono', monospace; font-size: 9pt; font-weight: 600; color: var(--red); }
+.setc .nm { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 15pt; line-height: 1.05; }
+.setc .kt { font-family: 'IBM Plex Mono', monospace; font-size: 7.5pt; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-top: 1.5mm; padding-bottom: 1mm; border-bottom: 1px solid var(--line); }
+.setc .kl { margin: 0; padding: 0; list-style: none; columns: 2; column-gap: 6mm; font-size: 7.6pt; line-height: 1.38; color: var(--ink); }
+.setc .kl li { break-inside: avoid; }
+.setc .kl b { font-family: 'IBM Plex Mono', monospace; font-size: 7pt; color: var(--red); }
+.setc .ks { font-size: 9.5pt; color: var(--muted); margin: 0; }
 .foot { position: absolute; left: 14mm; right: 14mm; bottom: 9mm; display: flex; justify-content: space-between; font-family: 'IBM Plex Mono', monospace; font-size: 7.5pt; color: #8A7F77; border-top: 1px solid var(--line); padding-top: 3mm; }
 '''
 doc = ('<!doctype html><html lang="tr"><head><meta charset="utf-8">'
