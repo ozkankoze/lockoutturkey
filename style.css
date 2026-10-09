@@ -504,3 +504,9 @@ h1, h2, h3, .h1, .h2, .h3, .panel h2, .pd-info h1, .cat-card h3, .sector-card h3
 .hero .h1 { font-size: clamp(42px, 7.4vw, 104px); line-height: .95; }
 .hero .h1 .ln { display: block; }
 @media (min-width: 760px) { .hero .h1 .ln { white-space: nowrap; } }
+
+/* Hero başlığı küçültüldü; açıklama yer varsa sağda, yoksa altta */
+.hero-top { flex-direction: row; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px 48px; }
+.hero-top > div { flex: 0 1 auto; width: auto; max-width: 100%; }
+.hero-top > p { flex: 1 1 300px; max-width: 430px; }
+.hero .h1 { font-size: clamp(36px, 4.4vw, 62px); line-height: .98; }
