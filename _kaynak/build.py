@@ -260,7 +260,7 @@ def sector_cards():
 def build_index():
     body = f'''<section class="hero wrap" id="nokta">
 <div class="hero-top"><div><span class="eyebrow">Tesisinizdeki her enerji noktası için</span>
-<h1 class="h1">Kilitleyeceğin noktayı seç.<br><em>Doğru kilidi biz söyleyelim.</em></h1></div>
+<h1 class="h1"><span class="ln">Kilitleyeceğin noktayı seç.</span> <em class="ln">Doğru kilidi biz söyleyelim.</em></h1></div>
 <p>Kategori listelerinde kaybolmayın. Tesis krokisinde bakım yapacağınız noktaya tıklayın; o noktaya uyan kilitleme ekipmanlarını ve uygulama notunu görün.</p></div>
 {finder_block()}
 </section>

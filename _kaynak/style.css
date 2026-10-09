@@ -496,3 +496,11 @@ h1, h2, h3, .h1, .h2, .h3, .panel h2, .pd-info h1, .cat-card h3, .sector-card h3
 .cat-chips svg { width: 28px; height: 28px; color: var(--red); }
 .cat-chips span { font-family: var(--mono); font-size: 12px; color: var(--faint); }
 [hidden] { display: none !important; }
+
+/* Hero: başlık tam genişlikte, her cümle tek satırda; açıklama altta */
+.hero-top { flex-direction: column; align-items: flex-start; gap: 22px; }
+.hero-top > div { flex: none; width: 100%; }
+.hero-top > p { flex: none; max-width: 62ch; }
+.hero .h1 { font-size: clamp(42px, 7.4vw, 104px); line-height: .95; }
+.hero .h1 .ln { display: block; }
+@media (min-width: 760px) { .hero .h1 .ln { white-space: nowrap; } }
