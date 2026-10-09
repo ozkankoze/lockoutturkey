@@ -111,7 +111,7 @@
     var current = D.points[0];
     function show(id) {
       current = D.points.filter(function (p) { return p.id === id; })[0] || D.points[0];
-      $$('.hot', root).forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-point') === current.id ? 'true' : 'false'); });
+      $$('.hot, .pt-chip').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-point') === current.id ? 'true' : 'false'); });
       $('[data-f="meta"]', panel).textContent = 'Nokta ' + current.no + ' · ' + current.zone;
       $('[data-f="energy"]', panel).textContent = current.energy;
       $('[data-f="name"]', panel).textContent = current.name;
@@ -121,6 +121,7 @@
         return '<a class="panel-item" href="' + esc(p.url) + '"><span class="thumb">' + (p.img ? '<img src="img/urunler/' + esc(p.img) + '" alt="" loading="lazy">' : (D.icons[p.icon] || '')) + '</span><span><b>' + esc(p.name) + '</b><small>' + esc(p.code + ' · ' + p.cat) + '</small></span></a>';
       }).join('');
     }
+    $$('.pt-chip').forEach(function (c) { c.addEventListener('click', function () { show(c.getAttribute('data-point')); if (window.innerWidth < 760) panel.scrollIntoView({ behavior: 'smooth', block: 'start' }); }); });
     root.addEventListener('click', function (e) {
       var b = e.target.closest('.hot');
       if (b) show(b.getAttribute('data-point'));

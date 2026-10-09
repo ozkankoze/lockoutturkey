@@ -4,7 +4,7 @@ Görseller ve katalog PDF'i ../site/img ve ../site/lockout-turkey-katalog.pdf ol
 import json, os, re, shutil, html
 from datetime import date
 from urllib.parse import quote
-from data import SITE, CATEGORIES, COLORS, STEPS, FAQ, FOOTER_TEXT
+from data import SITE, CATEGORIES, COLORS, STEPS, FAQ, FOOTER_TEXT, POINTS, REFS
 from blog import POSTS
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -29,6 +29,8 @@ GROUPS = {}
 for p in PROD.values():
     if p["group"]: GROUPS.setdefault((p["cat"], p["group"]), []).append(p)
 for g in GROUPS.values(): g.sort(key=nat)
+for pt in POINTS: pt["products"] = [CODE.get(r, r) for r in pt["products"]]
+REF_IDS = {k: CODE.get(v, v) for k, v in REFS.items()}
 
 def imgs(p): return [i for i in p["images"] if os.path.exists(os.path.join(IMG_DIR, i))]
 def img(p, k=0, lazy=True, alt=None):
@@ -60,7 +62,7 @@ LOGO = ('<span class="wm"><span class="wm-top">LOCK<svg class="wm-o" viewBox="0 
         '<span class="wm-bot"><i></i><span>TURKEY</span><i></i></span></span>')
 
 # ---------------------------------------------------------------- iskelet
-NAV = [("./", "Anasayfa"), ("urunler.html", "Ürünler"), ("kurumsal.html", "Kurumsal"), ("loto-rehberi.html", "LOTO Rehberi"), ("blog.html", "Blog"), ("iletisim.html", "İletişim")]
+NAV = [("./", "Anasayfa"), ("urunler.html", "Ürünler"), ("set-olusturucu.html", "Set Oluşturucu"), ("kurumsal.html", "Kurumsal"), ("loto-rehberi.html", "LOTO Rehberi"), ("blog.html", "Blog"), ("iletisim.html", "İletişim")]
 PAGES = []
 
 def header(active):
@@ -89,7 +91,7 @@ def footer():
 <div class="about"><a class="logo" href="./">{LOGO}</a><p>{e(FOOTER_TEXT)}</p>
 <a class="btn btn-red btn-sm" style="align-self:flex-start" href="{CATALOG_PDF}" target="_blank" rel="noopener">{I_DOC} Ürün kataloğu (PDF)</a></div>
 <div class="col"><b>Ürünler</b>{cats}<a href="urunler.html">Tüm ürünler →</a></div>
-<div class="col"><b>Kurumsal</b><a href="kurumsal.html">Hakkımızda</a><a href="loto-rehberi.html">LOTO rehberi</a><a href="blog.html">Blog</a><a href="teklif.html">Teklif sepeti</a><a href="iletisim.html">İletişim</a><a href="kvkk.html">KVKK ve gizlilik</a></div>
+<div class="col"><b>Kurumsal</b><a href="kurumsal.html">Hakkımızda</a><a href="set-olusturucu.html">Set oluşturucu</a><a href="loto-rehberi.html">LOTO rehberi</a><a href="blog.html">Blog</a><a href="teklif.html">Teklif sepeti</a><a href="iletisim.html">İletişim</a><a href="kvkk.html">KVKK ve gizlilik</a></div>
 <div class="col"><b>İletişim</b><a href="{tel()}">{e(SITE["phone"])}</a><a href="{wa()}" target="_blank" rel="noopener">WhatsApp</a><span>{e(SITE["email"])}</span><span>{e(SITE["address"])}</span></div>
 </div><div class="bottom"><div class="wrap"><span>© {date.today().year} {e(SITE["brand"])}. Tüm hakları saklıdır.</span><span>EKED · LOTO kilitleme ve etiketleme ekipmanları</span></div></div></footer>
 <a class="wa-float" href="{wa("Merhaba, LOTO ürünleri hakkında bilgi almak istiyorum.")}" target="_blank" rel="noopener" aria-label="WhatsApp ile yazın">{WA_ICON}</a>'''
@@ -164,8 +166,6 @@ def post_card(p):
 <div class="meta"><span class="tg">{e(p["tag"])}</span><span>{tr_date(p["date"])}</span><span>{p["minutes"]} dk okuma</span></div>
 <h3>{e(p["title"])}</h3><p>{e(p["summary"])}</p><span class="go">Devamını oku →</span></div></a>'''
 def render_body(b):
-    b = b.replace('Ekibinize kaç kilit ve hangi kutunun gerektiğini <a href="set-olusturucu.html">set oluşturucu</a> ile hızlıca hesaplayabilirsiniz.',
-                  'Ekibinize uygun kutuyu <a href="grup-kilitleme-kutulari-ve-cantalar.html">grup kilitleme kutuları</a> arasından seçebilir ya da ekip ve nokta sayınızı yazarak bize sorabilirsiniz.')
     b = re.sub(r"\{p:([^}]+)\}", lambda m: '<a href="%s">%s</a>' % (P(m.group(1))["url"], e(P(m.group(1))["name"])), b)
     return re.sub(r"\{c:([^}]+)\}", lambda m: '<a href="%s">%s</a>' % (cat_url(m.group(1)), e(CAT[m.group(1)]["name"].lower())), b)
 
@@ -199,11 +199,76 @@ def info_card(title="Bize ulaşın"):
 <div style="display:flex;flex-wrap:wrap;gap:10px"><a class="btn btn-red" href="{wa("Merhaba, LOTO ürünleri hakkında bilgi almak istiyorum.")}" target="_blank" rel="noopener">WhatsApp’tan yaz</a>
 <a class="btn btn-line" href="https://www.google.com/maps/search/?api=1&amp;query={quote(SITE["address"])}" target="_blank" rel="noopener">Haritada aç</a></div></div>'''
 
+# ---------------------------------------------------------------- araçlar
+I_INFO = ic('<circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/>')
+def panel_item(i):
+    p = PROD[i]
+    return '<a class="panel-item" href="%s"><span class="thumb">%s</span><span><b>%s</b><small>%s</small></span></a>' % (p["url"], img(p, alt=""), e(p["name"]), e(p["code"] + " · " + CAT[p["cat"]]["name"]))
+
+def finder_block():
+    zones = '''<div class="zone" style="left:2.5%;top:7%;width:21%;height:86%"></div>
+<div class="zone" style="left:26%;top:7%;width:29%;height:86%"></div>
+<div class="zone" style="left:57.5%;top:7%;width:40%;height:86%"></div>
+<span class="zone-label" style="left:4%;top:10%;max-width:18%">Elektrik odası</span>
+<span class="zone-label" style="left:27.5%;top:10%;max-width:26%">Üretim hattı</span>
+<span class="zone-label" style="left:59%;top:10%;max-width:36%">Proses · tesisat</span>
+<div class="wire" style="left:13%;top:30%;width:31%;height:2px"></div>
+<div class="wire" style="left:13%;top:30%;width:2px;height:40%"></div>
+<div class="wire" style="left:13%;top:70%;width:18%;height:2px"></div>
+<div class="pipe" style="left:62%;top:24%;width:30%;height:5px"></div>
+<div class="pipe" style="left:82%;top:24%;width:5px;height:54%"></div>
+<div class="pipe" style="left:66%;top:75%;width:22%;height:5px"></div>
+<div class="air" style="left:70%;top:60%;width:20%"></div>
+<div class="machine" style="left:32%;top:46%;width:17%;height:17%"></div>'''
+    hots = "".join('<button type="button" class="hot%s" data-point="%s" aria-pressed="%s" style="left:%d%%;top:%d%%"><span class="num">%s</span><span class="lbl">%s</span><span class="sr-only"> noktasını göster</span></button>'
+                   % (" hot-r" if p["x"] >= 80 else "", p["id"], "true" if i == 0 else "false", p["x"], p["y"], p["no"], e(p["name"])) for i, p in enumerate(POINTS))
+    chips = "".join('<button type="button" class="pt-chip" data-point="%s" aria-pressed="%s"><span>%s</span>%s</button>' % (p["id"], "true" if i == 0 else "false", p["no"], e(p["name"])) for i, p in enumerate(POINTS))
+    p0 = POINTS[0]
+    return f'''<div class="hero-finder" id="nokta">
+<div class="hf-head"><span class="hf-kicker">Nokta seçici</span><b>Kilitleyeceğin noktayı seç, doğru kilidi görelim.</b></div>
+<div class="kroki" id="kroki" role="group" aria-label="Tesis krokisi: kilitleme noktaları">{zones}{hots}
+<div class="legend"><span><i class="lg-wire"></i>Elektrik</span><span><i class="lg-pipe"></i>Akışkan</span><span><i class="lg-air"></i>Basınçlı hava</span></div></div>
+<div class="pt-list" role="group" aria-label="Kilitleme noktaları">{chips}</div>
+<aside class="panel" id="nokta-panel" aria-live="polite">
+<div class="panel-top"><span class="mono" data-f="meta">Nokta {p0["no"]} · {e(p0["zone"])}</span><span class="pill" data-f="energy">{e(p0["energy"])}</span></div>
+<h2 data-f="name">{e(p0["name"])}</h2>
+<div class="panel-list" data-f="list">{"".join(panel_item(i) for i in p0["products"])}</div>
+<div class="panel-tip">{I_INFO}<span data-f="tip">{e(p0["tip"])}</span></div>
+<div class="panel-actions"><button type="button" class="btn btn-red btn-sm" data-f="add">Hepsini teklif sepetine ekle</button></div>
+</aside></div>'''
+
+def builder_block():
+    return '''<div class="builder" id="kit">
+<div class="builder-q">
+<div class="q-card"><div class="q-title"><span class="qn">1</span>Aynı anda kaç kişi bakım yapıyor?</div>
+<div class="stepper stepper--big"><button type="button" data-w="-1" aria-label="Çalışan sayısını azalt">−</button><output data-k="workers" aria-live="polite">4</output><button type="button" data-w="1" aria-label="Çalışan sayısını arttır">+</button><span class="muted" style="margin-left:8px">çalışan</span></div></div>
+<div class="q-card"><div class="q-title"><span class="qn">2</span>Hangi noktalardan kaç tane kilitlenecek?</div><div class="energy-rows" data-k="energy"></div></div>
+<div class="q-card"><div class="q-title"><span class="qn">3</span>Anahtar sistemi</div>
+<div class="seg" role="group" aria-label="Anahtar sistemi"><button type="button" data-key="farkli" aria-pressed="true">Farklı anahtar</button><button type="button" data-key="ayni" aria-pressed="false">Aynı anahtar</button><button type="button" data-key="master" aria-pressed="false">Master anahtar</button></div>
+<p class="muted" style="font-size:15px" data-k="keynote"></p></div>
+</div>
+<div class="builder-out">
+<div class="out-head"><b>Önerilen set</b><span class="mono" data-k="summary"></span></div>
+<div data-k="list" aria-live="polite"></div>
+<div class="out-foot"><span>Adetler ön öneridir, sahada netleştirilir. <span data-k="keyinfo"></span></span><button type="button" class="btn btn-red" data-kit-add>Seti teklif sepetine ekle</button></div>
+</div></div>'''
+
+def build_set_page():
+    logic = [("1–3 kişi", "Kişisel kilitleme", "Her çalışan her izolasyon noktasına kendi kilidini takar. Birden fazla kişi varsa her noktaya bir çoklandırıcı eklenir."),
+             ("4+ kişi", "Grup kilitleme", "Her noktaya aynı anahtarlı bir ortak kilit takılır, anahtarlar grup kutusuna konur ve her çalışan kutuyu kendi kilidiyle kilitler."),
+             ("Herkes", "Kişisel etiket", "Kilidi kimin taktığı her zaman görülmeli; her çalışana bir kişisel etiket eklenir."),
+             ("Saklama", "Çanta veya istasyon", "5 kişiye kadar taşınabilir çanta, daha kalabalık ekiplerde duvar tipi istasyon önerilir.")]
+    steps = "".join('<div class="step"><span class="n">%s</span><b>%s</b><p>%s</p></div>' % (e(a), e(b), e(c)) for a, b, c in logic)
+    body = f'''{band([("", "Set oluşturucu")], "Set oluşturucu", "LOTO setinizi hesaplayın.", "Ekipte kaç kişi olduğunu, hangi noktaları kilitleyeceğinizi ve anahtar sistemini seçin. Liste anında güncellenir; tek tuşla teklif sepetine ekleyebilirsiniz.")}
+<section class="sec"><div class="wrap">{builder_block()}</div></section>
+<section class="sec sec-dark"><div class="wrap"><div class="sec-head"><div><span class="kicker">Hesaplama mantığı</span><h2 class="t2">Liste nasıl oluşuyor?</h2></div></div>
+<div class="steps steps-4">{steps}</div></div></section>
+{cta()}'''
+    page("set-olusturucu.html", "LOTO Set Oluşturucu", "Çalışan sayısı, kilitleme noktaları ve anahtar sistemine göre LOTO setinizi hesaplayın, teklif sepetine ekleyin.", body, "set-olusturucu.html")
+
 # ---------------------------------------------------------------- sayfalar
 COLOR_ROLES = {c[0]: c[2] for c in COLORS}
 def build_index():
-    hero_imgs = [P("LT-PR-U07"), P("LT-G11"), P("LT-D01")]
-    collage = "".join('<a href="%s" aria-label="%s">%s</a>' % (p["url"], e(p["name"]), img(p, lazy=False, alt="")) for p in hero_imgs)
     picker_group = GROUPS[("emniyet-asma-kilitleri", "Plastik Çene Emniyet Asma Kilidi 38 mm")]
     first = picker_group[0]
     dots = "".join('<button type="button" class="dot" style="background:%s" aria-pressed="%s" aria-label="%s" data-pick="%s" data-img="img/urunler/%s" data-url="%s" data-code="%s" data-color="%s" data-role="%s"></button>'
@@ -227,9 +292,7 @@ def build_index():
 <h1>Bakımdan önce enerjiyi kilitleyin. <span>Kes, kilitle, etiketle.</span></h1>
 <p>Emniyet asma kilitlerinden şalter ve vana kilitlerine, LOTO istasyonlarından hazır setlere kadar {len(PROD)} ürün. Doğru kilidi seçmek için fotoğraf göndermeniz yeterli.</p>
 <div class="hero-actions"><a class="btn btn-white" href="urunler.html">Ürünleri incele</a><a class="btn btn-ghost" href="{wa("Merhaba, LOTO ürünleri için teklif almak istiyorum.")}" target="_blank" rel="noopener">WhatsApp’tan teklif al</a></div></div>
-<div class="hero-card">{collage}
-<div class="chip-float b"><i>{I_BOX}</i><div><b>{len(PROD)} ürün</b>{len(CATEGORIES)} ürün grubu</div></div>
-<div class="chip-float a"><i>{I_SHIELD}</i><div><b>OSHA 29 CFR 1910.147</b>uyumlu LOTO ekipmanı</div></div></div>
+{finder_block()}
 </div><div class="tape"></div></section>
 <section class="wrap"><div class="stats">
 <div><b>{len(PROD)}</b><span>LOTO / EKED ürünü</span></div><div><b>{len(CATEGORIES)}</b><span>ürün grubu</span></div>
@@ -246,11 +309,15 @@ def build_index():
 <a id="pick-link" href="{first["url"]}">Ürünü incele →</a></div></div></div></section>
 <section class="sec sec-dark"><div class="wrap"><div class="sec-head"><div><span class="kicker">LOTO nasıl uygulanır?</span><h2 class="t2">7 adımda güvenli enerji izolasyonu</h2></div>
 <a class="btn btn-white" href="loto-rehberi.html">Rehberin tamamı</a></div><div class="steps">{steps}</div></div></section>
-<section class="sec"><div class="wrap"><div class="sec-head"><div><span class="kicker">Hazır setler</span><h2 class="t2">Tek pakette eksiksiz LOTO</h2></div>
+<section class="sec"><div class="wrap kit-teaser"><div class="kit-teaser-tx"><span class="kicker">Set oluşturucu</span><h2 class="t2">Ekibinize göre LOTO setini 3 soruda hesaplayın.</h2>
+<p class="lead">Kaç kişi çalışıyor, hangi noktalar kilitlenecek, anahtar sistemi ne olacak? Önerilen liste anında çıkar, tek tuşla teklif sepetine eklenir.</p>
+<a class="btn btn-red" href="set-olusturucu.html">Set oluşturucuyu aç</a></div>
+<ol class="kit-teaser-steps"><li><b>1</b><span>Aynı anda bakım yapan çalışan sayısı</span></li><li><b>2</b><span>Pano, vana, basınçlı hava, fiş noktaları</span></li><li><b>3</b><span>Farklı, aynı ya da master anahtar</span></li></ol></div></section>
+<section class="sec sec-soft"><div class="wrap"><div class="sec-head"><div><span class="kicker">Hazır setler</span><h2 class="t2">Tek pakette eksiksiz LOTO</h2></div>
 <a class="btn btn-line" href="{cat_url("loto-setleri")}">Tüm setler</a></div><div class="grid">{"".join(pcard(p) for p in sets)}</div></div></section>
-<section class="sec sec-soft"><div class="wrap"><div class="sec-head"><div><span class="kicker">Öne çıkanlar</span><h2 class="t2">En çok tercih edilen ürünler</h2></div></div>
+<section class="sec"><div class="wrap"><div class="sec-head"><div><span class="kicker">Öne çıkanlar</span><h2 class="t2">En çok tercih edilen ürünler</h2></div></div>
 <div class="tabs" role="tablist" aria-label="Kategoriye göre ürünler">{tabs}</div><div class="grid" id="tabgrid">{tab_items}</div></div></section>
-<section class="sec"><div class="wrap"><div class="sec-head"><div><span class="kicker">Neden Lockout Turkey?</span><h2 class="t2">Ekipmandan fazlası</h2></div></div>
+<section class="sec sec-soft"><div class="wrap"><div class="sec-head"><div><span class="kicker">Neden Lockout Turkey?</span><h2 class="t2">Ekipmandan fazlası</h2></div></div>
 <div class="why"><div><i>{I_SHIELD}</i><b>Standartlara uygun</b><p>Ürünler OSHA 29 CFR 1910.147 ve iş güvenliği mevzuatının gerekliliklerine uygundur.</p></div>
 <div><i>{I_CHAT}</i><b>Ürün seçim desteği</b><p>Hangi şaltere hangi kilit uyar? Fotoğrafını gönderin, doğru ekipmanı birlikte seçelim.</p></div>
 <div><i>{I_TAG}</i><b>Kişiye özel</b><p>Renk kodlu kilitler, farklı / aynı / master anahtar sistemleri ve isim baskısı.</p></div>
@@ -445,7 +512,7 @@ def write_assets():
     shutil.copy(os.path.join(HERE, "extra.js"), os.path.join(OUT, "extra.js"))
     data = {"site": {k: SITE[k] for k in ("whatsapp_num", "email")}, "icons": {},
             "products": {i: {"name": p["name"], "code": p["code"], "cat": CAT[p["cat"]]["name"], "url": p["url"], "img": (imgs(p) or [""])[0]} for i, p in PROD.items()},
-            "points": [], "refs": {}}
+            "points": POINTS, "refs": REF_IDS}
     open(os.path.join(OUT, "data.js"), "w", encoding="utf-8").write("window.BOSS = " + json.dumps(data, ensure_ascii=False) + ";\n")
     open(os.path.join(OUT, "favicon.svg"), "w", encoding="utf-8").write('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="16" fill="#D0121F"/><path d="M11.5 14.5V11a4.5 4.5 0 0 1 9 0v3.5" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round"/><rect x="8" y="13.5" width="16" height="12" rx="3" fill="#fff"/></svg>')
     open(os.path.join(OUT, "robots.txt"), "w").write("User-agent: *\nAllow: /\nSitemap: %s/sitemap.xml\n" % SITE["domain"])
@@ -459,6 +526,6 @@ if __name__ == "__main__":
         if name in KEEP: continue
         path = os.path.join(OUT, name)
         shutil.rmtree(path) if os.path.isdir(path) else os.remove(path)
-    build_index(); build_products(); build_categories(); build_product_pages(); build_about(); build_guide()
+    build_index(); build_set_page(); build_products(); build_categories(); build_product_pages(); build_about(); build_guide()
     build_blog(); build_contact(); build_cart(); build_kvkk(); write_assets()
     print("%d sayfa üretildi → %s" % (len(PAGES), os.path.normpath(OUT)))
