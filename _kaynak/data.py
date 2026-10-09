@@ -18,9 +18,9 @@ CATEGORIES = [
         "slug": "emniyet-asma-kilitleri",
         "name": "Emniyet Asma Kilitleri",
         "icon": "padlock",
-        "short": "Kişisel kilitleme için renk kodlu, anahtarı tekil kilitler.",
-        "intro": "LOTO uygulamasının temeli kişisel kilittir: her çalışan kendi kilidini takar, anahtarı yalnızca kendisinde kalır. Emniyet asma kilitleri mülk koruma için değil, enerji izolasyonu için üretilir; hafif, yalıtkan gövdeli ve renk kodludur.",
-        "uses": ["Her çalışana kişisel kilit", "Çoklandırıcı ve grup kutusu ile", "Departman bazlı renk kodlama"],
+        "short": "Toz korumalı, renk kodlu, anahtarı tekil kişisel kilitler.",
+        "intro": "LOTO uygulamasının temeli kişisel kilittir: her çalışan kendi kilidini takar, anahtarı yalnızca kendisinde kalır. Emniyet asma kilitleri mülk koruma için değil, enerji izolasyonu için üretilir; hafif, yalıtkan gövdeli ve renk kodludur. Tüm modellerimizde anahtar yuvası menteşeli toz kapağıyla korunur.",
+        "uses": ["Toz kapaklı anahtar yuvası", "Her çalışana kişisel kilit", "Çoklandırıcı ve grup kutusu ile", "Departman bazlı renk kodlama"],
     },
     {
         "slug": "salter-kilitleri",
