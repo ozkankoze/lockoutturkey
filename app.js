@@ -248,31 +248,42 @@
   }
 
   /* ---------- Teklif sayfası ---------- */
+  var X_ICON = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
   function renderCartPage() {
     var root = $('#teklif-root');
     var c = getCart();
     var empty = $('#teklif-bos');
     empty.hidden = c.length > 0;
     root.hidden = c.length === 0;
+    var total = 0;
     $('#teklif-satir').innerHTML = c.map(function (it, i) {
-      var url = productUrl(it.id);
+      total += it.qty;
+      var p = (it.id && D.products[it.id]) || null;
+      var url = p ? p.url : '';
+      var thumb = p && p.img ? '<img src="img/urunler/' + esc(p.img) + '" alt="" loading="lazy">' : '<span class="ci-ph"></span>';
       var name = url ? '<a href="' + esc(url) + '">' + esc(it.name) + '</a>' : esc(it.name);
-      return '<div class="cart-row"><div class="name">' + name + '</div>' +
-        '<div class="stepper stepper--sm"><button type="button" data-ci="' + i + '" data-cd="-1" aria-label="Azalt">−</button>' +
-        '<output>' + it.qty + '</output><button type="button" data-ci="' + i + '" data-cd="1" aria-label="Arttır">+</button></div>' +
-        '<button type="button" class="remove" data-cr="' + i + '">Kaldır</button></div>';
+      return '<div class="cart-item">' + (url ? '<a class="ci-img" href="' + esc(url) + '" tabindex="-1" aria-hidden="true">' + thumb + '</a>' : '<span class="ci-img">' + thumb + '</span>') +
+        '<div class="ci-tx">' + (p ? '<span class="ci-code">' + esc(p.code) + '</span>' : '') + '<b>' + name + '</b></div>' +
+        '<div class="ci-qty"><button type="button" data-ci="' + i + '" data-cd="-1" aria-label="' + esc(it.name) + ' adet azalt">−</button>' +
+        '<output aria-live="polite">' + it.qty + '</output><button type="button" data-ci="' + i + '" data-cd="1" aria-label="' + esc(it.name) + ' adet arttır">+</button></div>' +
+        '<button type="button" class="ci-x" data-cr="' + i + '" aria-label="' + esc(it.name) + ' ürününü kaldır">' + X_ICON + '</button></div>';
     }).join('');
+    var oz = $('#teklif-ozet');
+    if (oz) oz.innerHTML = '<b>' + c.length + '</b> ürün · toplam <b>' + total + '</b> adet';
   }
   function buildMessage(form) {
     var f = function (n) { var el = form.elements[n]; return el ? el.value.trim() : ''; };
     var lines = ['Merhaba, aşağıdaki ürünler için teklif almak istiyorum.', ''];
-    getCart().forEach(function (it) { lines.push('• ' + it.name + ' — ' + it.qty + ' adet'); });
+    getCart().forEach(function (it) {
+      var p = it.id && D.products[it.id];
+      var code = p && it.name.indexOf(p.code) === -1 ? ' (' + p.code + ')' : '';
+      lines.push('• ' + it.name + code + ' — ' + it.qty + ' adet');
+    });
     lines.push('');
-    if (f('firma')) lines.push('Firma: ' + f('firma'));
     if (f('ad')) lines.push('Ad Soyad: ' + f('ad'));
+    if (f('firma')) lines.push('Firma: ' + f('firma'));
     if (f('telefon')) lines.push('Telefon: ' + f('telefon'));
     if (f('eposta')) lines.push('E-posta: ' + f('eposta'));
-    if (f('sehir')) lines.push('Şehir: ' + f('sehir'));
     if (f('not')) { lines.push(''); lines.push('Not: ' + f('not')); }
     return lines.join('\n');
   }
@@ -299,15 +310,28 @@
       save(c);
     });
     var form = $('#teklif-form');
+    var err = $('#teklif-hata');
+    function valid() {
+      var bad = [];
+      ['ad', 'telefon'].forEach(function (n) {
+        var el = form.elements[n];
+        var ok = el.value.trim().length > 1;
+        el.setAttribute('aria-invalid', ok ? 'false' : 'true');
+        if (!ok) bad.push(el);
+      });
+      if (err) err.hidden = !bad.length;
+      if (bad.length) bad[0].focus();
+      return !bad.length;
+    }
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      var text = buildMessage(form);
-      var out = $('#teklif-cikti');
-      out.hidden = false;
-      $('#teklif-metin').value = text;
-      $('#teklif-wa').href = waLink(text);
-      $('#teklif-mail').href = mailLink('Teklif talebi', text);
-      out.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      if (!valid()) return;
+      var w = window.open(waLink(buildMessage(form)), '_blank', 'noopener');
+      if (!w) location.href = waLink(buildMessage(form));
+    });
+    $('#teklif-eposta').addEventListener('click', function () {
+      if (!valid()) return;
+      location.href = mailLink('Teklif talebi', buildMessage(form));
     });
     $('#teklif-temizle').addEventListener('click', function () { save([]); });
   }

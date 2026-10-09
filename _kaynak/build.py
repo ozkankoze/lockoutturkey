@@ -474,21 +474,33 @@ def build_contact():
 <section class="sec"><div class="wrap two">{contact_form()}{info_card()}</div></section>'''
     page("iletisim.html", "İletişim", "Lockout Turkey iletişim bilgileri: telefon, WhatsApp, e-posta ve adres.", body, "iletisim.html")
 
+I_WA_SM = WA_ICON.replace('width="28" height="28"', 'width="22" height="22"')
 def build_cart():
     body = f'''{band([("", "Teklif sepeti")], "Teklif sepeti", "Teklif sepetiniz", "Adetleri düzenleyin, bilgilerinizi ekleyin; listeyi WhatsApp ya da e-posta ile gönderin.")}
-<section class="sec"><div class="wrap">
-<div class="empty" id="teklif-bos"><b class="t3">Sepetiniz boş.</b><p class="muted">Ürün sayfalarından ya da kategori listelerinden ürün ekleyebilirsiniz.</p><a class="btn btn-red" href="urunler.html">Ürünlere göz at</a></div>
-<div class="two" id="teklif-root" hidden>
-<div class="card"><div style="display:flex;justify-content:space-between;align-items:center;gap:12px"><h2 class="t3">Ürünler</h2><button class="btn btn-line btn-sm" type="button" id="teklif-temizle">Sepeti temizle</button></div><div id="teklif-satir"></div><a href="urunler.html" style="font-weight:700">+ Ürün ekle</a></div>
-<form class="card card-soft" id="teklif-form" novalidate><h2 class="t3">Bilgileriniz</h2>
-<div class="field"><label for="t-firma">Firma</label><input id="t-firma" name="firma" autocomplete="organization"></div>
-<div class="fields-2"><div class="field"><label for="t-ad">Ad Soyad</label><input id="t-ad" name="ad" autocomplete="name"></div><div class="field"><label for="t-tel">Telefon</label><input id="t-tel" name="telefon" type="tel" autocomplete="tel"></div></div>
-<div class="fields-2"><div class="field"><label for="t-mail">E-posta</label><input id="t-mail" name="eposta" type="email" autocomplete="email"></div><div class="field"><label for="t-sehir">Şehir</label><input id="t-sehir" name="sehir" autocomplete="address-level1"></div></div>
-<div class="field"><label for="t-not">Not</label><textarea id="t-not" name="not" placeholder="Renk, anahtar sistemi, baskı isteği…"></textarea></div>
-<button class="btn btn-red" type="submit" style="align-self:flex-start">Teklif talebini hazırla</button>
-<div class="output-box" id="teklif-cikti" hidden><p class="notice">Talebiniz hazır. WhatsApp ya da e-posta ile gönderin; açılmazsa metni kopyalayıp yapıştırın.</p>
-<label class="sr-only" for="teklif-metin">Talep metni</label><textarea id="teklif-metin" readonly></textarea>
-<div style="display:flex;flex-wrap:wrap;gap:10px"><a class="btn btn-dark" id="teklif-wa" href="#" target="_blank" rel="noopener">WhatsApp ile gönder</a><a class="btn btn-line" id="teklif-mail" href="#">E-posta ile gönder</a><button class="btn btn-line" type="button" data-copy="#teklif-metin">Metni kopyala</button></div></div></form></div></div></section>'''
+<section class="sec cart-sec"><div class="wrap">
+<div class="empty" id="teklif-bos"><b class="t3">Sepetiniz boş.</b><p class="muted">Ürün sayfalarından, nokta seçiciden ya da set oluşturucudan ürün ekleyebilirsiniz.</p>
+<div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center"><a class="btn btn-red" href="urunler.html">Ürünlere göz at</a><a class="btn btn-line" href="set-olusturucu.html">Set oluştur</a></div></div>
+<div class="cart-layout" id="teklif-root" hidden>
+<div class="cart-main">
+<div class="cart-list" id="teklif-satir"></div>
+<div class="cart-sum"><span id="teklif-ozet"></span><span class="cart-sum-r"><a href="urunler.html">+ Ürün ekle</a><button type="button" class="linkbtn" id="teklif-temizle">Sepeti temizle</button></span></div>
+<div class="cart-steps">
+<div><span>1</span><b>Ürünleri ekleyin</b><p>Ürün sayfalarından veya kartlardaki “+ Teklif” düğmesiyle.</p></div>
+<div><span>2</span><b>Adetleri girin</b><p>Her ürün için ihtiyacınız olan miktarı belirleyin.</p></div>
+<div><span>3</span><b>Talebi gönderin</b><p>WhatsApp veya e-posta ile; teklifiniz aynı gün hazır.</p></div></div>
+</div>
+<form class="quote-card" id="teklif-form" novalidate>
+<div class="qc-head"><h2>Teklif Bilgileri</h2><p>* işaretli alanlar zorunludur</p></div>
+<div class="qc-body">
+<div class="fields-2"><div class="field"><label for="t-ad">Ad Soyad *</label><input id="t-ad" name="ad" autocomplete="name" required></div><div class="field"><label for="t-firma">Firma</label><input id="t-firma" name="firma" autocomplete="organization"></div></div>
+<div class="fields-2"><div class="field"><label for="t-tel">Telefon *</label><input id="t-tel" name="telefon" type="tel" autocomplete="tel" required></div><div class="field"><label for="t-mail">E-posta</label><input id="t-mail" name="eposta" type="email" autocomplete="email"></div></div>
+<div class="field"><label for="t-not">Not</label><textarea id="t-not" name="not" placeholder="Teslimat yeri, anahtar sistemi (farklı / aynı anahtar), renk tercihi…"></textarea></div>
+<p class="qc-err" id="teklif-hata" role="alert" hidden>Lütfen ad soyad ve telefon alanlarını doldurun.</p>
+<button class="btn btn-wa" type="submit">{I_WA_SM} WhatsApp ile Gönder</button>
+<button class="btn btn-line btn-mail" type="button" id="teklif-eposta">{I_MAIL} E-posta ile Gönder</button>
+<p class="qc-note">Gönder düğmesi, ürün listesi ve bilgilerinizle hazırlanmış mesajı WhatsApp’ta veya e-posta uygulamanızda açar.</p>
+</div></form>
+</div></div></section>'''
     page("teklif.html", "Teklif Sepeti", "Seçtiğiniz LOTO ürünleri için teklif talebi oluşturun.", body, "")
 
 def build_kvkk():
