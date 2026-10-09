@@ -64,7 +64,7 @@ NAV = [("./", "Anasayfa"), ("urunler.html", "Ürünler"), ("kurumsal.html", "Kur
 PAGES = []
 
 def header(active):
-    mega = "".join('<a href="%s">%s%s<span>%d ürün</span></a>' % (cat_url(c["slug"]), img(cat_cover(c), alt=""), e(c["name"]), len(c["items"])) for c in CATEGORIES)
+    mega = "".join('<a href="%s">%s<div>%s<span>%d ürün</span></div></a>' % (cat_url(c["slug"]), img(cat_cover(c), alt=""), e(c["name"]), len(c["items"])) for c in CATEGORIES)
     items = []
     for href, label in NAV:
         cur = ' aria-current="page"' if href == active else ""

@@ -385,3 +385,12 @@ h1, h2, h3 { font-family: var(--head); text-wrap: balance; }
 .t2 { font-weight: 700; }
 .icon-btn svg { width: 20px; height: 20px; }
 .chip-float.b { right: 14px; top: -20px; }
+
+/* Açılır ürün menüsü: kompakt iki sütun liste */
+.mega { top: calc(100% + 12px); left: 50%; transform: translateX(-50%); width: min(680px, 92vw); grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; padding: 12px; }
+.mega::before { content: ""; position: absolute; left: 0; right: 0; top: -16px; height: 16px; }
+.mega a { flex-direction: row; align-items: center; gap: 12px; padding: 8px 10px; font-size: 15px; }
+.mega a img { width: 52px; height: 52px; aspect-ratio: auto; flex: none; object-fit: contain; border-radius: 10px; }
+.mega a > div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.mega a span { font-size: 12px; }
+.mega .all { justify-content: center; padding: 12px; margin-top: 4px; }
