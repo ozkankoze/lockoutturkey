@@ -510,3 +510,37 @@ h1, h2, h3, .h1, .h2, .h3, .panel h2, .pd-info h1, .cat-card h3, .sector-card h3
 .hero-top > div { flex: 0 1 auto; width: auto; max-width: 100%; }
 .hero-top > p { flex: 1 1 300px; max-width: 430px; }
 .hero .h1 { font-size: clamp(36px, 4.4vw, 62px); line-height: .98; }
+
+/* Nokta listesi: yalnızca dar ekranda krokinin altında */
+.pt-list { display: none; flex: 1 1 100%; flex-wrap: wrap; gap: 8px; }
+.pt-chip { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px 0 6px; border-radius: 999px; border: 1.5px solid var(--line-2); background: var(--paper); font-family: var(--display); font-size: 14px; font-weight: 600; color: var(--ink); }
+.pt-chip span { width: 30px; height: 30px; border-radius: 50%; background: var(--ink); color: #FFFFFF; font-family: var(--mono); font-size: 12px; display: inline-flex; align-items: center; justify-content: center; }
+.pt-chip[aria-pressed="true"] { background: var(--red); border-color: var(--red); color: #FFFFFF; }
+.pt-chip[aria-pressed="true"] span { background: #FFFFFF; color: var(--red); }
+.kroki .zone-label { line-height: 1.25; white-space: normal; }
+@media (max-width: 760px) {
+  .pt-list { display: flex; }
+  .kroki { height: 340px; }
+  .kroki .zone-label { font-size: 8.5px; letter-spacing: .06em; top: 8.5% !important; }
+  .kroki .machine-label { display: none; }
+  .hot { min-height: 40px; padding: 3px; }
+  .hot .num { width: 30px; height: 30px; }
+  .legend { font-size: 11px; gap: 10px; left: 12px; bottom: 10px; }
+}
+/* Mobilde kategoriler ve ürünler iki sütun */
+@media (max-width: 600px) {
+  .cat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .cat-card { padding: 14px; gap: 8px; }
+  .cat-card .ic { width: 44px; height: 44px; border-radius: 10px; }
+  .cat-card .ic svg { width: 30px; height: 30px; }
+  .cat-card h3 { font-size: 18px; }
+  .cat-card p { font-size: 13px; line-height: 1.4; }
+  .cat-card .meta { flex-direction: column; align-items: flex-start; gap: 2px; font-size: 13px; }
+  .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .p-body { padding: 12px; gap: 6px; }
+  .p-card h3 { font-size: 16px; }
+  .p-card p { display: none; }
+  .p-cat { font-size: 9.5px; }
+  .p-actions .btn { min-height: 40px; padding: 0 8px; font-size: 13px; }
+}
+@media (max-width: 600px) { .topbar > .wrap > .mono { display: none; } .topbar .contacts { gap: 4px 14px; font-size: 12.5px; } }

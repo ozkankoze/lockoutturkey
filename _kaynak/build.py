@@ -190,9 +190,9 @@ def finder_block():
     zones = '''<div class="zone" style="left:2.5%;top:7%;width:21%;height:86%"></div>
 <div class="zone" style="left:26%;top:7%;width:29%;height:86%"></div>
 <div class="zone" style="left:57.5%;top:7%;width:40%;height:86%"></div>
-<span class="zone-label" style="left:4%;top:9.5%">Elektrik odası</span>
-<span class="zone-label" style="left:27.5%;top:9.5%">Üretim hattı</span>
-<span class="zone-label" style="left:59%;top:9.5%">Proses · tesisat</span>
+<span class="zone-label" style="left:4%;top:9.5%;max-width:18%">Elektrik odası</span>
+<span class="zone-label" style="left:27.5%;top:9.5%;max-width:26%">Üretim hattı</span>
+<span class="zone-label" style="left:59%;top:9.5%;max-width:36%">Proses · tesisat</span>
 <div class="wire" style="left:13%;top:30%;width:31%;height:2px"></div>
 <div class="wire" style="left:13%;top:30%;width:2px;height:40%"></div>
 <div class="wire" style="left:13%;top:70%;width:18%;height:2px"></div>
@@ -201,7 +201,7 @@ def finder_block():
 <div class="pipe" style="left:66%;top:75%;width:22%;height:6px"></div>
 <div class="air" style="left:70%;top:60%;width:22%"></div>
 <div class="machine" style="left:32%;top:44%;width:18%;height:18%"></div>
-<span class="zone-label" style="left:33.5%;top:57%;font-size:10px">Pres · hat 2</span>'''
+<span class="zone-label machine-label" style="left:33.5%;top:57%;font-size:10px;max-width:15%">Pres · hat 2</span>'''
     hots = "".join('<button type="button" class="hot" data-point="%s" aria-pressed="%s" style="left:%d%%;top:%d%%"><span class="num">%s</span><span class="lbl">%s</span><span class="sr-only"> noktasını göster</span></button>'
                    % (p["id"], "true" if i == 0 else "false", p["x"], p["y"], p["no"], e(p["name"])) for i, p in enumerate(POINTS))
     p0 = POINTS[0]
@@ -210,6 +210,7 @@ def finder_block():
 <div class="kroki" id="kroki" role="group" aria-label="Tesis krokisi: kilitleme noktaları">{zones}{hots}
 <div class="legend"><span><i style="width:16px;height:2px;background:var(--ink);opacity:.4"></i>Elektrik</span><span><i style="width:16px;height:5px;border-radius:3px;background:var(--pipe)"></i>Akışkan hattı</span><span><i style="width:16px;border-top:3px dotted var(--faint)"></i>Basınçlı hava</span></div>
 </div>
+<div class="pt-list" role="group" aria-label="Kilitleme noktaları">{"".join('<button type="button" class="pt-chip" data-point="%s" aria-pressed="%s"><span>%s</span>%s</button>' % (p["id"], "true" if i == 0 else "false", p["no"], e(p["name"])) for i, p in enumerate(POINTS))}</div>
 <aside class="panel" id="nokta-panel" aria-live="polite">
 <div class="panel-top"><span class="mono" data-f="meta">Nokta {p0["no"]} · {e(p0["zone"])}</span><span class="pill" data-f="energy">{e(p0["energy"])}</span></div>
 <h2 data-f="name">{e(p0["name"])}</h2>
