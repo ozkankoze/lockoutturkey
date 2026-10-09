@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 """Lockout Turkey statik site üreticisi.  Kullanım: python3 build.py  →  ../site/"""
-import json, os, shutil, html
+import json, os, shutil, html, re
 from datetime import date
 from data import SITE, CATEGORIES, POINTS, COLORS, SECTORS, STEPS, FAQ, REFS, FOOTER_TEXT
+from blog import POSTS
+import re
+CATALOG_PDF = "lockout-turkey-katalog.pdf"
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "..", "site")
@@ -44,6 +47,8 @@ for p in json.load(open(os.path.join(HERE, "catalog.json"), encoding="utf-8")):
     PROD[p["id"]] = p
     CODE[p["code"]] = p["id"]
     CAT[p["cat"]]["items"].append(p)
+def _nat(p): return [int(t) if t.isdigit() else t for t in re.split(r"(\d+)", p["code"])]
+for c in CATEGORIES: c["items"].sort(key=_nat)
 def pid(ref):
     """Ürün kodunu (LT-...) ya da ürün kimliğini ürün kimliğine çevirir."""
     return CODE.get(ref, ref)
@@ -74,7 +79,7 @@ def tel_href():
 
 # ---------------------------------------------------------------- iskelet
 NAV = [("urunler.html", "Ürünler"), ("./#nokta", "Nokta seçici"), ("set-olusturucu.html", "Set oluşturucu"),
-       ("sektorler.html", "Sektörler"), ("loto-rehberi.html", "LOTO rehberi"), ("kurumsal.html", "Kurumsal"),
+       ("sektorler.html", "Sektörler"), ("loto-rehberi.html", "LOTO rehberi"), ("blog.html", "Blog"), ("kurumsal.html", "Kurumsal"),
        ("iletisim.html", "İletişim")]
 
 def header(active):
@@ -104,7 +109,7 @@ def footer():
 <div class="about"><a class="logo" href="./">{LOGO}</a>
 <p>{e(FOOTER_TEXT)}</p>{('<span>%s</span>' % e(SITE["address"])) if SITE["address"] else ''}</div>
 <div class="col"><span class="mono">ÜRÜNLER</span>{cats}<a href="urunler.html">Tüm ürünler →</a></div>
-<div class="col"><span class="mono">ARAÇLAR</span><a href="./#nokta">Nokta seçici</a><a href="set-olusturucu.html">Set oluşturucu</a><a href="teklif.html">Teklif listesi</a><a href="loto-rehberi.html">LOTO rehberi</a><a href="sektorler.html">Sektörler</a></div>
+<div class="col"><span class="mono">ARAÇLAR</span><a href="./#nokta">Nokta seçici</a><a href="set-olusturucu.html">Set oluşturucu</a><a href="teklif.html">Teklif listesi</a><a href="loto-rehberi.html">LOTO rehberi</a><a href="blog.html">Blog</a><a href="sektorler.html">Sektörler</a><a href="{CATALOG_PDF}" target="_blank" rel="noopener">Ürün kataloğu (PDF)</a></div>
 <div class="col"><span class="mono">İLETİŞİM</span><a href="{tel_href()}">{e(SITE["phone"])}</a><a href="{wa_href()}" target="_blank" rel="noopener">WhatsApp: {e(SITE["whatsapp"])}</a><span>{e(SITE["email"])}</span><a href="kurumsal.html">Kurumsal</a></div>
 </div>
 <div class="wrap bottom"><span>© {date.today().year} {e(SITE["brand"])}. Tüm hakları saklıdır.</span><span><a href="kvkk.html">KVKK ve gizlilik</a></span></div>
@@ -132,7 +137,7 @@ def page(fname, title, desc, body, active=""):
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,800..900&amp;family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;0,800;1,700&amp;family=Barlow:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -279,6 +284,7 @@ def build_index():
 <section class="section section--paper"><div class="wrap">
 <div class="section-head"><div><span class="eyebrow">LOTO prosedürü</span><h2 class="h2">Ekipman, doğru sırayla kullanılınca işe yarar.</h2></div><a class="link-arrow" href="loto-rehberi.html">Rehberin tamamı →</a></div>
 <div class="steps">{steps_block()}</div></div></section>
+{blog_block()}
 {faq_block(FAQ)}
 {cta_block()}'''
     page("index.html", "Lockout Turkey | EKED / LOTO Kilitleme ve Etiketleme Ekipmanları",
@@ -291,7 +297,7 @@ def build_products():
     body = f'''{crumbs(("", "Ürünler"))}
 <section class="wrap page-head"><div><span class="eyebrow">Ürün kataloğu</span><h1 class="h1">Tüm ürünler</h1>
 <p class="lead">Ürün adı, kullanım noktası ya da kategoriye göre arayın. Aradığınızı bulamazsanız noktanın fotoğrafını gönderin.</p></div>
-<a class="btn btn-line" href="./#nokta">Krokiden nokta seç</a></section>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><a class="btn btn-dark" href="{CATALOG_PDF}" target="_blank" rel="noopener">Kataloğu indir (PDF)</a><a class="btn btn-line" href="./#nokta">Krokiden nokta seç</a></div></section>
 <section class="wrap" style="padding-bottom:72px">
 <div class="toolbar"><label class="search" for="urun-ara">{SEARCH_ICON}<span class="sr-only">Ürün ara</span><input id="urun-ara" type="search" placeholder="Örn. vana, sigorta, çoklandırıcı" autocomplete="off"></label><span class="result-count" id="urun-sayi">{len(PROD)} ürün</span></div>
 <div class="chips" style="margin-bottom:24px" role="group" aria-label="Kategori filtresi">{chips}</div>
@@ -444,32 +450,63 @@ def build_guide():
     page("loto-rehberi.html", "LOTO Rehberi: Kilitleme ve Etiketleme Adımları", "EKED / LOTO nedir, hangi enerjiler kilitlenir, prosedürün adımları, kilit kuralları, grup kilitleme ve mevzuat özeti.", body, "loto-rehberi.html")
 
 def build_about():
-    addr = ('<li><span>Adres</span><b>%s</b></li>' % e(SITE["address"])) if SITE["address"] else ""
+    hero_p = PROD[pid("LT-PR-U07")]
+    cats = "".join('<a href="%s">%s%s<span>%d</span></a>' % (cat_url(c["slug"]), ICONS[c["icon"]], e(c["name"]), len(c["items"])) for c in CATEGORIES)
     body = f"""{crumbs(("", "Kurumsal"))}
-<section class="wrap page-head"><div><span class="eyebrow">Kurumsal</span><h1 class="h1">Lockout Turkey</h1>
-<p class="lead">Lockout Turkey, iş sağlığı ve güvenliği alanında kilitleme ve etiketleme (EKED / LOTO) ekipmanları sunan bir markadır. Bakım, onarım ve temizlik sırasında makinelerin beklenmedik şekilde çalışmasını önleyen ekipmanları tek noktadan tedarik ediyoruz.</p></div></section>
-<section class="wrap" style="padding-bottom:64px"><div class="two-col">
-<article class="prose"><h2>Ne yapıyoruz?</h2>
-<p>Ürün yelpazemizde emniyet asma kilitleri, şalter ve devre kesici kilitleri, vana ve kablo kilitleri, çoklandırıcılar, fiş ve pnömatik kilitler, EKED uyarı etiketleri, LOTO istasyonları, grup kilitleme kutuları ve hazır LOTO setleri bulunur. Toplam {len(PROD)} ürünü {len(CATEGORIES)} grupta topladık.</p>
-<p>Doğru kilidi seçmek, ekipmanın kendisi kadar önemlidir. Bu yüzden ürünle birlikte seçim desteği veriyoruz: kilitlenecek noktanın fotoğrafını ya da marka/model bilgisini göndermeniz, uygun ürünü belirlememiz için yeterli. Çok noktalı tesislerde kilitleme noktalarını birlikte çıkarıp nokta başına ekipman listesi hazırlıyoruz.</p>
-<h2>Nasıl çalışıyoruz?</h2>
-<p>Kişisel kilitlerde renk, anahtar sistemi (farklı, aynı ya da master anahtar) ve isim/numara baskısı gibi seçenekleri işletmenizin LOTO prosedürüne göre birlikte belirliyoruz. Teklif listenizi site üzerinden oluşturup WhatsApp ya da e-posta ile gönderebilirsiniz; kurumsal faturalı satış yapıyoruz.</p></article>
-<div class="card"><span class="panel-label" style="color:var(--faint)">KISA BİLGİ</span><ul class="info-list">
-<li><span>Faaliyet alanı</span><b>EKED / LOTO kilitleme ve etiketleme ekipmanları</b></li>
-<li><span>Ürün grubu</span><b>{len(CATEGORIES)} grup, {len(PROD)} ürün</b></li>
-{addr}
-<li><span>Telefon / WhatsApp</span><b>{e(SITE["phone"])}</b></li>
-<li><span>E-posta</span><b>{e(SITE["email"])}</b></li></ul></div>
+<section class="wrap about-hero">
+<div class="about-copy"><span class="eyebrow">Kurumsal · Lockout Turkey</span><h1 class="h1">Biz kimiz?</h1>
+<p class="lead">Lockout Turkey, iş sağlığı ve güvenliği alanında kilitleme ve etiketleme (EKED / LOTO) ekipmanları sunan bir markadır. Bakım, onarım ve temizlik sırasında makinelerin beklenmedik şekilde çalışmasını önleyen ekipmanları işletmelere tek noktadan tedarik ediyoruz.</p>
+<p class="lead">Temel hedefimiz; çalışan güvenliğini artırmak, iş kazalarını önlemek ve işletmelerin LOTO uygulamalarını doğru ekipmanla, uluslararası standartlara uygun şekilde kurmasına yardımcı olmaktır.</p>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><a class="btn btn-red" href="urunler.html">Ürünlerimiz</a><a class="btn btn-line" href="{CATALOG_PDF}" target="_blank" rel="noopener">Katalog (PDF)</a></div></div>
+<div class="about-visual"><div class="p-img">{p_image(hero_p, lazy=False)}</div></div>
+</section>
+<section class="wrap" style="padding-bottom:56px"><div class="stats">
+<div><b>{len(PROD)}</b><span>Ürün çeşidi</span></div>
+<div><b>{len(CATEGORIES)}</b><span>Ürün grubu</span></div>
+<div><b>8</b><span>Renk emniyet kilidi</span></div>
+<div><b>OSHA</b><span>29 CFR 1910.147 uyumlu ürünler</span></div>
+<div><b>İstanbul</b><span>Ümraniye’den Türkiye geneline</span></div>
 </div></section>
-<section class="section section--paper"><div class="wrap"><div class="section-head"><div><span class="eyebrow">Neler yapıyoruz</span><h2 class="h2">Ürünle birlikte uygulama desteği.</h2></div></div>
-<div class="steps">
-<div class="step"><span class="mono">Tedarik</span><b>Ürün tedariki</b><p>Kişisel kilitlerden istasyonlara kadar tüm LOTO ekipmanı.</p></div>
-<div class="step"><span class="mono">Seçim</span><b>Ürün seçim desteği</b><p>Fotoğraf ya da model bilgisiyle noktaya uyan kilidin belirlenmesi.</p></div>
-<div class="step"><span class="mono">Saha</span><b>Saha keşfi</b><p>Kilitleme noktalarının çıkarılması ve nokta başına ekipman listesi.</p></div>
-<div class="step"><span class="mono">Baskı</span><b>Kişiye özel</b><p>İsim, numara, renk ve anahtar sistemine göre hazırlanan kilitler.</p></div>
+<section class="section section--paper"><div class="wrap mv">
+<div class="mv-card"><span class="mv-mark">M</span><h2 class="h2">Misyonumuz</h2>
+<p>İşletmelerin enerji izolasyonu ihtiyaçlarına doğru, dayanıklı ve kullanımı kolay kilitleme ve etiketleme çözümleri sunmak.</p>
+<p>Her teklifte yalnızca ürünü değil, ürünün doğru noktada doğru şekilde kullanılmasını da önemsemek.</p></div>
+<div class="mv-card"><span class="mv-mark">V</span><h2 class="h2">Vizyonumuz</h2>
+<p>Türkiye’de LOTO ekipmanı denildiğinde akla gelen, ulaşılabilir ve güvenilir tedarikçilerden biri olmak.</p>
+<p>LOTO uygulamalarını yalnızca büyük tesislerin değil, her ölçekteki işletmenin günlük bakım rutini haline getirmek.</p></div>
+</div></section>
+<section class="section"><div class="wrap">
+<div class="section-head"><div><span class="eyebrow">Neye inanıyoruz</span><h2 class="h2">Değerlerimiz</h2></div></div>
+<div class="values">
+<div><b>Güvenlik</b><p>Tüm işlerimizin merkezinde insan güvenliği yer alır.</p></div>
+<div><b>Doğru ürün</b><p>Satıştan önce kilitlenecek noktayı anlamaya çalışırız; uymayan ürünü önermeyiz.</p></div>
+<div><b>Güvenilirlik</b><p>Müşterilerimizle ve iş ortaklarımızla uzun vadeli ilişkiler kurarız.</p></div>
+<div><b>Hız</b><p>Teklif ve sevkiyatta hızlı dönüş, sahadaki bakımın beklememesi demektir.</p></div>
 </div></div></section>
-{cta_block()}"""
-    page("kurumsal.html", "Kurumsal", "Lockout Turkey hakkında: EKED / LOTO kilitleme ve etiketleme ekipmanları tedariki, ürün seçim desteği ve saha keşfi.", body, "kurumsal.html")
+<section class="section section--paper"><div class="wrap why">
+<div><span class="eyebrow">Farkımız</span><h2 class="h2">Neden Lockout Turkey?</h2>
+<ul class="features">
+<li><span>Kişisel kilitlerden LOTO istasyonlarına kadar {len(PROD)} ürün tek noktada</span></li>
+<li><span>Fotoğraf ya da model bilgisiyle ürün seçim desteği</span></li>
+<li><span>Renk, anahtar sistemi ve isim/numara baskısıyla kişiye özel kilitler</span></li>
+<li><span>Tesis krokisi ve set oluşturucu ile kolay ürün seçimi</span></li>
+<li><span>Kurumsal faturalı satış ve hızlı teklif</span></li>
+</ul></div>
+<blockquote class="quote">“Önce güvenlik” anlayışıyla her gün daha güvenli çalışma alanları için çalışıyoruz. Bizim için her kilit, bir çalışanın güvencesidir.<cite>Lockout Turkey</cite></blockquote>
+</div></section>
+<section class="section"><div class="wrap">
+<div class="section-head"><div><span class="eyebrow">Ürünler</span><h2 class="h2">Ürün kategorilerimiz</h2></div><a class="link-arrow" href="urunler.html">Tüm ürünler →</a></div>
+<div class="cat-chips">{cats}</div></div></section>
+<section class="section section--paper"><div class="wrap">
+<div class="section-head"><div><span class="eyebrow">İletişim</span><h2 class="h2">Size destek olmak için buradayız.</h2></div></div>
+<div class="two-col">{contact_form()}
+<div class="card"><span class="panel-label" style="color:var(--faint)">MERKEZ</span><ul class="info-list">
+<li><span>Adres</span><b>{e(SITE["address"])}</b></li>
+<li><span>Telefon / WhatsApp</span><b>{e(SITE["phone"])}</b></li>
+<li><span>E-posta</span><b>{e(SITE["email"])}</b></li></ul>
+<a class="btn btn-line" href="https://www.google.com/maps/search/?api=1&amp;query={e(SITE["address"])}" target="_blank" rel="noopener">Haritada aç</a></div>
+</div></div></section>"""
+    page("kurumsal.html", "Kurumsal", "Lockout Turkey hakkında: biz kimiz, misyonumuz, vizyonumuz ve değerlerimiz. EKED / LOTO kilitleme ve etiketleme ekipmanları.", body, "kurumsal.html")
 
 def contact_form():
     return '''<form class="card" id="iletisim-form" novalidate>
@@ -546,6 +583,60 @@ def build_kvkk():
 </article></section>"""
     page("kvkk.html", "KVKK ve Gizlilik", "Lockout Turkey KVKK aydınlatma metni ve gizlilik bilgileri.", body, "")
 
+
+# ---------------------------------------------------------------- blog
+AYLAR = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"]
+def tr_date(iso):
+    y, m, d = iso.split("-"); return "%d %s %s" % (int(d), AYLAR[int(m) - 1], y)
+def post_url(p): return "blog-%s.html" % p["slug"]
+POSTS.sort(key=lambda p: p["date"], reverse=True)
+def render_body(html_body):
+    def plink(m):
+        p = PROD[pid(m.group(1))]
+        return '<a href="%s">%s</a>' % (p["url"], e(p["name"]))
+    def clink(m):
+        c = CAT[m.group(1)]
+        return '<a href="%s">%s</a>' % (cat_url(c["slug"]), e(c["name"].lower()))
+    html_body = re.sub(r"\{p:([^}]+)\}", plink, html_body)
+    return re.sub(r"\{c:([^}]+)\}", clink, html_body)
+def post_card(p):
+    cover = PROD[pid(p["cover"])]
+    return f"""<a class="post-card" href="{post_url(p)}"><div class="post-img">{p_image(cover)}</div>
+<div class="post-body"><div class="post-meta"><span>{e(p["tag"])}</span><span>{tr_date(p["date"])} · {p["minutes"]} dk</span></div>
+<h3>{e(p["title"])}</h3><p>{e(p["summary"])}</p><span class="go">Yazıyı oku →</span></div></a>"""
+def blog_block():
+    return f"""<section class="section"><div class="wrap">
+<div class="section-head"><div><span class="eyebrow">Blog</span><h2 class="h2">Sahadan notlar.</h2></div><a class="link-arrow" href="blog.html">Tüm yazılar →</a></div>
+<div class="post-grid">{"".join(post_card(p) for p in POSTS[:3])}</div></div></section>"""
+def build_blog():
+    first, rest = POSTS[0], POSTS[1:]
+    cover = PROD[pid(first["cover"])]
+    body = f"""{crumbs(("", "Blog"))}
+<section class="wrap page-head"><div><span class="eyebrow">Blog</span><h1 class="h1">Kilitleme ve etiketleme üzerine.</h1>
+<p class="lead">Ürün seçimi, prosedür ve saha uygulamaları hakkında kısa ve uygulanabilir yazılar.</p></div></section>
+<section class="wrap" style="padding-bottom:40px"><a class="post-feature" href="{post_url(first)}"><div class="post-img">{p_image(cover, lazy=False)}</div>
+<div class="post-body"><div class="post-meta"><span>{e(first["tag"])}</span><span>{tr_date(first["date"])} · {first["minutes"]} dk okuma</span></div>
+<h2 class="h2">{e(first["title"])}</h2><p class="lead">{e(first["summary"])}</p><span class="go">Yazıyı oku →</span></div></a></section>
+<section class="wrap" style="padding-bottom:72px"><div class="post-grid">{"".join(post_card(p) for p in rest)}</div></section>
+{cta_block()}"""
+    page("blog.html", "Blog", "Lockout Turkey blog: emniyet asma kilidi seçimi, şalter ve vana kilitleme, grup kilitleme ve LOTO istasyonları üzerine yazılar.", body, "blog.html")
+    for i, p in enumerate(POSTS):
+        others = [x for x in POSTS if x is not p][:3]
+        prods = [PROD[pid(c)] for c in p["products"]][:4]
+        body = f"""{crumbs(("blog.html", "Blog"), ("", p["title"]))}
+<article class="wrap post">
+<header class="post-head"><div class="post-meta"><span>{e(p["tag"])}</span><span>{tr_date(p["date"])} · {p["minutes"]} dk okuma</span></div>
+<h1 class="h1">{e(p["title"])}</h1><p class="lead">{e(p["summary"])}</p></header>
+<div class="prose post-text">{render_body(p["body"])}</div>
+<aside class="post-cta"><b>Doğru ürünü birlikte seçelim</b><span class="muted">Kilitleyeceğiniz noktanın fotoğrafını gönderin, uygun ekipmanı bildirelim.</span>
+<a class="btn btn-red" href="{wa_href("Merhaba, " + p["title"] + " yazınızı okudum, bilgi almak istiyorum.")}" target="_blank" rel="noopener">WhatsApp’tan yazın</a></aside>
+</article>
+<section class="section section--paper"><div class="wrap"><div class="section-head"><div><span class="eyebrow">Yazıda geçen ürünler</span><h2 class="h2">İlgili ürünler</h2></div></div>
+<div class="product-grid">{"".join(product_card(x) for x in prods)}</div></div></section>
+<section class="section"><div class="wrap"><div class="section-head"><div><span class="eyebrow">Blog</span><h2 class="h2">Diğer yazılar</h2></div><a class="link-arrow" href="blog.html">Tüm yazılar →</a></div>
+<div class="post-grid">{"".join(post_card(x) for x in others)}</div></div></section>"""
+        page(post_url(p), p["title"], p["summary"], body, "blog.html")
+
 # ---------------------------------------------------------------- yardımcı dosyalar
 def write_assets():
     shutil.copy(os.path.join(HERE, "style.css"), os.path.join(OUT, "style.css"))
@@ -578,6 +669,6 @@ if __name__ == "__main__":
             shutil.rmtree(path) if os.path.isdir(path) else os.remove(path)
     os.makedirs(IMG_DIR, exist_ok=True)
     build_index(); build_products(); build_categories(); build_product_pages(); build_set_page()
-    build_sectors(); build_guide(); build_about(); build_contact(); build_cart(); build_kvkk()
+    build_sectors(); build_guide(); build_about(); build_contact(); build_cart(); build_kvkk(); build_blog()
     write_assets()
     print("%d sayfa üretildi → %s" % (len(PAGES), os.path.normpath(OUT)))

@@ -1,7 +1,7 @@
 # Lockout Turkey
 
-Statik site. Sayfalar `_kaynak/` içindeki üreticiyle oluşturulur:
+Statik site. Sayfalar `_kaynak/` içindeki üreticilerle oluşturulur:
 
-    cd _kaynak && python3 build.py   # çıktı ../site/ klasörüne yazılır
+    cd _kaynak && python3 build.py && python3 catalog_pdf.py   # çıktı ../site/
 
 Üretilen dosyalar repo köküne kopyalanarak yayınlanır.

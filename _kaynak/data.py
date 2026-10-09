@@ -9,7 +9,7 @@ SITE = {
     "whatsapp": "0505 499 97 32",
     "whatsapp_num": "905054999732",
     "email": "info@lockoutturkey.com",
-    "address": "",           # adres gelince yazılacak; boşken sitede gösterilmez
+    "address": "Şerifali Mahallesi, Ziynet Sokak No: 36A, Ümraniye / İstanbul",
     "hours": "",             # örn. "Hafta içi 08:30–18:00"
 }
 
