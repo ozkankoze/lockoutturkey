@@ -36,3 +36,7 @@
   // Arama bağlantısı ile gelindiyse arama kutusuna odaklan
   if (location.hash === '#ara') { var s = $('#urun-ara'); if (s) setTimeout(function () { s.focus(); }, 50); }
 })();
+(function () {
+  var a = document.querySelector('.side a[aria-current="page"]');
+  if (a && window.innerWidth <= 640) { var s = a.parentElement; s.scrollLeft = a.offsetLeft - 16; }
+})();
