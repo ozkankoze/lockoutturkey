@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Lockout Turkey · 2. tasarım statik site üreticisi.  python3 build.py → ../site/
 Görseller ve katalog PDF'i ../site/img ve ../site/lockout-turkey-katalog.pdf olarak durur (silinmez)."""
-import json, os, re, shutil, html
+import json, os, re, shutil, html, hashlib
 from datetime import date
 from urllib.parse import quote
 from data import SITE, CATEGORIES, COLORS, STEPS, FAQ, FOOTER_TEXT, POINTS, REFS
@@ -11,7 +11,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "..", "site")
 IMG_DIR = os.path.join(OUT, "img", "urunler")
 CATALOG_PDF = "lockout-turkey-katalog.pdf"
-KEEP = {"img", CATALOG_PDF}
+KEEP = {"img", "fonts", CATALOG_PDF}
 e = html.escape
 
 # ---------------------------------------------------------------- veri
@@ -33,11 +33,16 @@ for pt in POINTS: pt["products"] = [CODE.get(r, r) for r in pt["products"]]
 REF_IDS = {k: CODE.get(v, v) for k, v in REFS.items()}
 
 def imgs(p): return [i for i in p["images"] if os.path.exists(os.path.join(IMG_DIR, i))]
-def img(p, k=0, lazy=True, alt=None):
+def img(p, k=0, lazy=True, alt=None, size="card"):
     l = imgs(p)
-    if len(l) > k:
-        return '<img src="img/urunler/%s" alt="%s" width="800" height="800"%s>' % (l[k], e(alt if alt is not None else p["name"]), ' loading="lazy"' if lazy else "")
-    return ICON_LOCK
+    if len(l) <= k: return ICON_LOCK
+    f = l[k]; b = f[:-5]
+    a = e(alt if alt else p["name"])
+    lz = ' loading="lazy" decoding="async"' if lazy else ' fetchpriority="high"'
+    if size == "thumb":
+        return '<img src="img/urunler/%s-160.webp" alt="%s" width="160" height="160"%s>' % (b, a, lz)
+    sizes = {"card": "(max-width: 640px) 46vw, (max-width: 1100px) 30vw, 300px", "big": "(max-width: 900px) 92vw, 560px"}[size]
+    return '<img src="img/urunler/%s-400.webp" srcset="img/urunler/%s-400.webp 400w, img/urunler/%s 800w" sizes="%s" alt="%s" width="800" height="800"%s>' % (b, b, f, sizes, a, lz)
 def cat_url(slug): return slug + ".html"
 def cat_cover(c): return c["items"][0]
 def wa(text=""): return "https://wa.me/%s%s" % (SITE["whatsapp_num"], ("?text=" + quote(text)) if text else "")
@@ -57,7 +62,7 @@ I_TAG = ic('<path d="M3 12V4a1 1 0 0 1 1-1h8l9 9-9 9z"/><circle cx="8" cy="8" r=
 I_BOX = ic('<path d="M3 7l9-4 9 4v10l-9 4-9-4z"/><path d="M3 7l9 4 9-4M12 11v10"/>')
 I_CHEV = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>'
 WA_ICON = '<svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.4.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2l-.5-.3z"/></svg>'
-LOGO = ('<span class="wm"><span class="wm-top">LOCK<svg class="wm-o" viewBox="0 0 72 108" aria-hidden="true"><path class="wm-sh" d="M18 34 V24 a18 18 0 0 1 36 0 V34"/>'
+LOGO = ('<span class="wm" aria-hidden="true"><span class="wm-top">LOCK<svg class="wm-o" viewBox="0 0 72 108" aria-hidden="true"><path class="wm-sh" d="M18 34 V24 a18 18 0 0 1 36 0 V34"/>'
         '<rect class="wm-body" x="2" y="31" width="68" height="77" rx="12"/><circle class="wm-kh" cx="36" cy="62" r="7"/><rect class="wm-kh" x="33" y="64" width="6" height="18" rx="2"/></svg>UT</span>'
         '<span class="wm-bot"><i></i><span>TURKEY</span><i></i></span></span>')
 
@@ -66,7 +71,7 @@ NAV = [("./", "Anasayfa"), ("urunler.html", "Ürünler"), ("set-olusturucu.html"
 PAGES = []
 
 def header(active):
-    mega = "".join('<a href="%s">%s<div>%s<span>%d ürün</span></div></a>' % (cat_url(c["slug"]), img(cat_cover(c), alt=""), e(c["name"]), len(c["items"])) for c in CATEGORIES)
+    mega = "".join('<a href="%s">%s<div>%s<span>%d ürün</span></div></a>' % (cat_url(c["slug"]), img(cat_cover(c), alt=c["name"], size="thumb"), e(c["name"]), len(c["items"])) for c in CATEGORIES)
     items = []
     for href, label in NAV:
         cur = ' aria-current="page"' if href == active else ""
@@ -78,7 +83,7 @@ def header(active):
 <div class="l"><a href="{tel()}">{e(SITE["phone"])}</a><a href="{wa()}" target="_blank" rel="noopener">WhatsApp</a><span>{e(SITE["email"])}</span></div>
 <div class="r"><span>EKED / LOTO ekipmanları</span><a href="{CATALOG_PDF}" target="_blank" rel="noopener">Katalog (PDF)</a></div></div></div>
 <header class="header"><div class="wrap">
-<a class="logo" href="./" aria-label="{e(SITE["brand"])} anasayfa">{LOGO}</a>
+<a class="logo" href="./">{LOGO}<span class="sr-only">Lockout Turkey</span></a>
 <nav class="nav" aria-label="Ana menü">{"".join(items)}</nav>
 <div class="h-actions"><a class="icon-btn" href="urunler.html#ara" aria-label="Ürün ara">{I_SEARCH}</a>
 <a class="cart-btn" href="teklif.html"><span class="cart-label">Teklif sepeti</span><span class="cart-count" data-cart-count>0</span><span class="sr-only">ürün</span></a>
@@ -88,7 +93,7 @@ def header(active):
 def footer():
     cats = "".join('<a href="%s">%s</a>' % (cat_url(c["slug"]), e(c["name"])) for c in CATEGORIES[:7])
     return f'''<footer class="footer"><div class="tape"></div><div class="wrap cols">
-<div class="about"><a class="logo" href="./">{LOGO}</a><p>{e(FOOTER_TEXT)}</p>
+<div class="about"><a class="logo" href="./">{LOGO}<span class="sr-only">Lockout Turkey</span></a><p>{e(FOOTER_TEXT)}</p>
 <a class="btn btn-red btn-sm" style="align-self:flex-start" href="{CATALOG_PDF}" target="_blank" rel="noopener">{I_DOC} Ürün kataloğu (PDF)</a></div>
 <div class="col"><b>Ürünler</b>{cats}<a href="urunler.html">Tüm ürünler →</a></div>
 <div class="col"><b>Kurumsal</b><a href="kurumsal.html">Hakkımızda</a><a href="set-olusturucu.html">Set oluşturucu</a><a href="loto-rehberi.html">LOTO rehberi</a><a href="blog.html">Blog</a><a href="teklif.html">Teklif sepeti</a><a href="iletisim.html">İletişim</a><a href="kvkk.html">KVKK ve gizlilik</a></div>
@@ -96,24 +101,68 @@ def footer():
 </div><div class="bottom"><div class="wrap"><span>© {date.today().year} {e(SITE["brand"])}. Tüm hakları saklıdır.</span><span>EKED · LOTO kilitleme ve etiketleme ekipmanları</span></div></div></footer>
 <a class="wa-float" href="{wa("Merhaba, LOTO ürünleri hakkında bilgi almak istiyorum.")}" target="_blank" rel="noopener" aria-label="WhatsApp ile yazın">{WA_ICON}</a>'''
 
-def page(fname, title, desc, body, active=""):
+def _ver():
+    h = hashlib.md5()
+    for f in ("style.css", "app.js", "extra.js", "catalog.json"): h.update(open(os.path.join(HERE, f), "rb").read())
+    return h.hexdigest()[:8]
+CSS_VER = _ver()
+FONT_CSS = open(os.path.join(HERE, "fonts.css"), encoding="utf-8").read()
+OG_IMAGE = SITE["domain"] + "/og-image.jpg"
+ORG = {"@type": "LocalBusiness", "@id": SITE["domain"] + "/#firma", "name": SITE["brand"], "url": SITE["domain"] + "/",
+       "logo": SITE["domain"] + "/logo.png", "image": OG_IMAGE, "telephone": "+" + SITE["whatsapp_num"], "email": SITE["email"],
+       "address": {"@type": "PostalAddress", "streetAddress": "Şerifali Mahallesi, Ziynet Sokak No: 36A", "addressLocality": "Ümraniye",
+                   "addressRegion": "İstanbul", "addressCountry": "TR"},
+       "description": "EKED / LOTO kilitleme ve etiketleme ekipmanları: emniyet asma kilitleri, şalter ve vana kilitleri, LOTO istasyonları ve setleri."}
+def clip(t, n):
+    t = re.sub(r"\s+", " ", t).strip()
+    if len(t) <= n: return t
+    t = t[:n - 1].rsplit(" ", 1)[0].rstrip(",.;:–-")
+    return t + "…"
+def fit_desc(d):
+    d = re.sub(r"\s+", " ", d).strip().rstrip("…").rstrip(".") + "."
+    if len(d) < 110: d += " Lockout Turkey’den hızlı teklif ve ürün seçim desteği."
+    return clip(d, 152)
+def fit_title(t):
+    full = "%s | %s" % (t, SITE["brand"])
+    return full if len(full) <= 62 else clip(t, 62)
+def crumb_ld(items):
+    return {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": n, "item": SITE["domain"] + "/" + u}
+            for i, (u, n) in enumerate([("", "Anasayfa")] + list(items))]}
+
+def page(fname, title, desc, body, active="", ld=None, image=None, keywords=None, og_type="website"):
     canonical = SITE["domain"] + ("/" if fname == "index.html" else "/" + fname)
-    full = title if fname == "index.html" else "%s | %s" % (title, SITE["brand"])
+    full = title if fname == "index.html" else fit_title(title)
+    desc = fit_desc(desc)
+    if fname != "index.html": body = body.replace(' loading="lazy" decoding="async"', ' decoding="async"', 2)
+    image = image or OG_IMAGE
+    kw = keywords or "EKED, LOTO, lockout tagout, kilitleme etiketleme, emniyet asma kilidi, iş güvenliği"
+    graph = [ORG, {"@type": "WebSite", "@id": SITE["domain"] + "/#site", "url": SITE["domain"] + "/", "name": SITE["brand"], "inLanguage": "tr-TR", "publisher": {"@id": SITE["domain"] + "/#firma"}}]
+    graph += ld or []
+    ldjson = json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False).replace("</", "<\\/")
     doc = f'''<!doctype html>
 <html lang="tr">
 <head>
-<meta charset="utf-8">
+<meta charset="utf-8">{'<base href="/">' if fname == "404.html" else ""}
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{e(full)}</title>
 <meta name="description" content="{e(desc)}">
+<meta name="keywords" content="{e(kw)}">
+<meta name="author" content="{e(SITE["brand"])}">
+<meta name="publisher" content="{e(SITE["brand"])}">
+<meta name="robots" content="{"noindex, follow" if fname == "404.html" else "index, follow, max-image-preview:large"}">
 <link rel="canonical" href="{canonical}">
-<meta property="og:type" content="website"><meta property="og:locale" content="tr_TR"><meta property="og:site_name" content="{e(SITE["brand"])}">
+<meta property="og:type" content="{og_type}"><meta property="og:locale" content="tr_TR"><meta property="og:site_name" content="{e(SITE["brand"])}">
 <meta property="og:title" content="{e(full)}"><meta property="og:description" content="{e(desc)}"><meta property="og:url" content="{canonical}">
+<meta property="og:image" content="{image}"><meta property="og:image:alt" content="{e(full)}">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{e(full)}"><meta name="twitter:description" content="{e(desc)}"><meta name="twitter:image" content="{image}">
 <meta name="theme-color" content="#D0121F">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,800..900&amp;family=Saira+Semi+Condensed:wght@500;600;700;800&amp;family=Source+Sans+3:wght@400;600;700&amp;family=IBM+Plex+Mono:wght@500;600&amp;display=swap">
-<link rel="stylesheet" href="style.css">
+<link rel="icon" href="favicon.ico" sizes="32x32"><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="manifest" href="site.webmanifest">
+<link rel="preload" href="fonts/saira-semi-condensed-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/source-sans-3-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/saira-semi-condensed-700-tr.woff2" as="font" type="font/woff2" crossorigin>
+<style>{FONT_CSS}</style>
+<link rel="stylesheet" href="style.css?v={CSS_VER}">
+<script type="application/ld+json">{ldjson}</script>
 </head>
 <body>
 {header(active)}
@@ -121,9 +170,9 @@ def page(fname, title, desc, body, active=""):
 {body}
 </main>
 {footer()}
-<script src="data.js"></script>
-<script src="app.js"></script>
-<script src="extra.js"></script>
+<script src="data.js?v={CSS_VER}" defer></script>
+<script src="app.js?v={CSS_VER}" defer></script>
+<script src="extra.js?v={CSS_VER}" defer></script>
 </body>
 </html>
 '''
@@ -154,7 +203,7 @@ def pcard(p, tab=None):
 <div class="ac"><a class="btn btn-line" href="{p["url"]}">İncele</a><button class="btn btn-red" type="button" data-add="{p["id"]}">+ Teklif</button></div></div></article>'''
 
 def cat_card(c, i):
-    return f'''<a class="cat" href="{cat_url(c["slug"])}"><span class="nb">{i:02d}</span><div class="ph">{img(cat_cover(c), alt="")}</div>
+    return f'''<a class="cat" href="{cat_url(c["slug"])}"><span class="nb">{i:02d}</span><div class="ph">{img(cat_cover(c), alt=c["name"])}</div>
 <div class="tx"><h3>{e(c["name"])}</h3><p>{e(c["short"])}</p><span class="ct">Ürünleri gör →<span>{len(c["items"])} ürün</span></span></div></a>'''
 
 AYLAR = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"]
@@ -162,7 +211,7 @@ def tr_date(iso): y, m, d = iso.split("-"); return "%d %s %s" % (int(d), AYLAR[i
 POSTS.sort(key=lambda p: p["date"], reverse=True)
 def post_url(p): return "blog-%s.html" % p["slug"]
 def post_card(p):
-    return f'''<a class="post-c" href="{post_url(p)}"><div class="ph">{img(P(p["cover"]), alt="")}</div><div class="bd">
+    return f'''<a class="post-c" href="{post_url(p)}"><div class="ph">{img(P(p["cover"]), alt=p["title"])}</div><div class="bd">
 <div class="meta"><span class="tg">{e(p["tag"])}</span><span>{tr_date(p["date"])}</span><span>{p["minutes"]} dk okuma</span></div>
 <h3>{e(p["title"])}</h3><p>{e(p["summary"])}</p><span class="go">Devamını oku →</span></div></a>'''
 def render_body(b):
@@ -203,7 +252,7 @@ def info_card(title="Bize ulaşın"):
 I_INFO = ic('<circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16.5v.01"/>')
 def panel_item(i):
     p = PROD[i]
-    return '<a class="panel-item" href="%s"><span class="thumb">%s</span><span><b>%s</b><small>%s</small></span></a>' % (p["url"], img(p, alt=""), e(p["name"]), e(p["code"] + " · " + CAT[p["cat"]]["name"]))
+    return '<a class="panel-item" href="%s"><span class="thumb">%s</span><span><b>%s</b><small>%s</small></span></a>' % (p["url"], img(p, size="thumb"), e(p["name"]), e(p["code"] + " · " + CAT[p["cat"]]["name"]))
 
 def finder_block():
     zones = '''<div class="zone" style="left:2.5%;top:7%;width:21%;height:86%"></div>
@@ -264,15 +313,15 @@ def build_set_page():
 <section class="sec sec-dark"><div class="wrap"><div class="sec-head"><div><span class="kicker">Hesaplama mantığı</span><h2 class="t2">Liste nasıl oluşuyor?</h2></div></div>
 <div class="steps steps-4">{steps}</div></div></section>
 {cta()}'''
-    page("set-olusturucu.html", "LOTO Set Oluşturucu", "Çalışan sayısı, kilitleme noktaları ve anahtar sistemine göre LOTO setinizi hesaplayın, teklif sepetine ekleyin.", body, "set-olusturucu.html")
+    page("set-olusturucu.html", "LOTO Set Oluşturucu – Setinizi Hesaplayın", "Çalışan sayısı, kilitleme noktaları ve anahtar sistemine göre LOTO setinizi hesaplayın, teklif sepetine ekleyin.", body, "set-olusturucu.html")
 
 # ---------------------------------------------------------------- sayfalar
 COLOR_ROLES = {c[0]: c[2] for c in COLORS}
 def build_index():
     picker_group = GROUPS[("emniyet-asma-kilitleri", "Plastik Çene Emniyet Asma Kilidi 38 mm")]
     first = picker_group[0]
-    dots = "".join('<button type="button" class="dot" style="background:%s" aria-pressed="%s" aria-label="%s" data-pick="%s" data-img="img/urunler/%s" data-url="%s" data-code="%s" data-color="%s" data-role="%s"></button>'
-                   % (COLOR_HEX.get(p["color"], "#999"), "true" if i == 0 else "false", e(p["color"]), p["id"], (imgs(p) or [""])[0], p["url"], e(p["code"]), e(p["color"]), e(COLOR_ROLES.get(p["color"], "")))
+    dots = "".join('<button type="button" class="dot" style="background:%s" aria-pressed="%s" aria-label="%s" data-pick="%s" data-img="img/urunler/%s-400.webp" data-url="%s" data-code="%s" data-color="%s" data-role="%s"></button>'
+                   % (COLOR_HEX.get(p["color"], "#999"), "true" if i == 0 else "false", e(p["color"]), p["id"], (imgs(p) or [".webp"])[0][:-5], p["url"], e(p["code"]), e(p["color"]), e(COLOR_ROLES.get(p["color"], "")))
                    for i, p in enumerate(picker_group))
     sets = [P(c) for c in ("LT-X02C", "LT-8773D", "LT-X07UN", "LT-PR-U07")]
     tab_cats = ["emniyet-asma-kilitleri", "salter-kilitleri", "vana-kilitleri", "coklandiricilar"]
@@ -301,7 +350,7 @@ def build_index():
 <a class="btn btn-dark" href="urunler.html">Tüm ürünler</a></div>
 <div class="cats">{"".join(cat_card(c, i + 1) for i, c in enumerate(CATEGORIES))}</div></div></section>
 <section class="sec"><div class="wrap picker">
-<div class="picker-img"><img id="pick-img" src="img/urunler/{(imgs(first) or [""])[0]}" alt="Emniyet asma kilidi renk seçenekleri" width="800" height="800"></div>
+<div class="picker-img"><img id="pick-img" src="img/urunler/{(imgs(first) or [""])[0][:-5]}-400.webp" alt="Emniyet asma kilidi renk seçenekleri" width="800" height="800" loading="lazy" decoding="async"></div>
 <div class="picker-tx"><span class="kicker">Renk kodlama</span><h2 class="t2">8 renk, tek standart.</h2>
 <p class="lead">Kilit rengi sahada kimin çalıştığını bir bakışta gösterir. Bir renk seçin, o renkteki emniyet asma kilidini görün.</p>
 <div class="dots" role="group" aria-label="Kilit rengi">{dots}</div>
@@ -327,7 +376,7 @@ def build_index():
 <div class="posts">{"".join(post_card(p) for p in POSTS[:3])}</div></div></section>
 {faq(FAQ)}'''
     page("index.html", "Lockout Turkey | EKED / LOTO Kilitleme ve Etiketleme Ekipmanları",
-         "Emniyet asma kilitleri, şalter, vana ve kablo kilitleri, çoklandırıcılar, LOTO istasyonları ve setleri. %d ürün, ürün seçim desteği ve hızlı teklif." % len(PROD), body, "./")
+         "Emniyet asma kilitleri, şalter, vana ve kablo kilitleri, çoklandırıcılar, LOTO istasyonları ve setleri. %d ürün, ürün seçim desteği ve hızlı teklif." % len(PROD), body, "./", ld=[{"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in FAQ]}])
 
 def side(active=None, filter_mode=False):
     if filter_mode:
@@ -344,25 +393,28 @@ def build_products():
 <section class="wrap shop">{side(filter_mode=True)}
 <div class="shop-main"><label class="searchbar" for="urun-ara" id="ara">{I_SEARCH}<span class="sr-only">Ürün ara</span><input id="urun-ara" type="search" placeholder="Örn. LT-G01, vana, sigorta, çoklandırıcı" autocomplete="off"></label>
 <span class="count" id="urun-sayi">{len(PROD)} ürün</span>
-<div class="grid">{"".join(pcard(p) for c in CATEGORIES for p in c["items"])}</div>
+<h2 class="sr-only">Ürün listesi</h2><div class="grid">{"".join(pcard(p) for c in CATEGORIES for p in c["items"])}</div>
 <div class="empty" id="urun-bos" hidden><b>Bu aramayla eşleşen ürün yok.</b><p class="muted">Farklı bir kelime deneyin ya da noktanın fotoğrafını WhatsApp’tan gönderin.</p></div></div></section>
 {cta()}'''
-    page("urunler.html", "Tüm Ürünler", "Lockout Turkey EKED / LOTO ürün kataloğu: %d ürün, %d kategori." % (len(PROD), len(CATEGORIES)), body, "urunler.html")
+    page("urunler.html", "Tüm Ürünler – EKED / LOTO Kataloğu", "Lockout Turkey EKED / LOTO ürün kataloğu: %d ürün, %d kategori." % (len(PROD), len(CATEGORIES)), body, "urunler.html")
 
 def build_categories():
     for c in CATEGORIES:
         body = f'''{band([("urunler.html", "Ürünler"), ("", c["name"])], "%d ürün" % len(c["items"]), c["name"], c["intro"])}
 <section class="wrap shop">{side(c["slug"])}
-<div class="shop-main"><div class="grid">{"".join(pcard(p) for p in c["items"])}</div></div></section>
+<div class="shop-main"><h2 class="sr-only">{e(c["name"])} ürünleri</h2><div class="grid">{"".join(pcard(p) for p in c["items"])}</div></div></section>
 {cta()}'''
-        page(cat_url(c["slug"]), c["name"], "%s: %s" % (c["name"], c["short"]), body, "urunler.html")
+        page(cat_url(c["slug"]), c["name"] + " – EKED / LOTO", "%s: %s %s" % (c["name"], c["short"], c["intro"]), body, "urunler.html",
+             ld=[crumb_ld([("urunler.html", "Ürünler"), (cat_url(c["slug"]), c["name"])]),
+                 {"@type": "ItemList", "name": c["name"], "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": SITE["domain"] + "/" + x["url"], "name": x["name"]} for i, x in enumerate(c["items"])]}],
+             keywords="%s, %s, EKED, LOTO, lockout tagout" % (c["name"], ", ".join(c["uses"])))
 
 def build_product_pages():
     for p in PROD.values():
         c = CAT[p["cat"]]
         l = imgs(p)
-        thumbs = "".join('<button type="button" class="thumb-btn" data-img="img/urunler/%s" aria-label="%d. görsel" aria-pressed="%s"><img src="img/urunler/%s" alt="" loading="lazy" width="160" height="160"></button>' % (im, k + 1, "true" if k == 0 else "false", im) for k, im in enumerate(l)) if len(l) > 1 else ""
-        main = '<img id="pd-main" src="img/urunler/%s" alt="%s" width="800" height="800">' % (l[0], e(p["name"])) if l else ICON_LOCK
+        thumbs = "".join('<button type="button" class="thumb-btn" data-img="img/urunler/%s" aria-label="%d. görsel" aria-pressed="%s"><img src="img/urunler/%s-160.webp" alt="%s – %d. görsel" loading="lazy" decoding="async" width="160" height="160"></button>' % (im, k + 1, "true" if k == 0 else "false", im[:-5], e(p["name"]), k + 1) for k, im in enumerate(l)) if len(l) > 1 else ""
+        main = '<img id="pd-main" src="img/urunler/%s" alt="%s" width="800" height="800" fetchpriority="high">' % (l[0], e(p["name"])) if l else ICON_LOCK
         sw = ""
         if p["group"]:
             sw = '<div><span class="kicker" style="margin-bottom:10px">Renk: %s</span><div class="swatches">%s</div></div>' % (e(p["color"]), "".join(
@@ -400,7 +452,15 @@ def build_product_pages():
 <section class="wrap pd-tabs"><div class="tabs" role="tablist" aria-label="Ürün bilgileri">{"".join(tabs)}</div>{"".join(panels)}</section>
 <section class="sec sec-soft"><div class="wrap"><div class="sec-head"><div><span class="kicker">{e(c["name"])}</span><h2 class="t2">Benzer ürünler</h2></div><a class="btn btn-line" href="{cat_url(c["slug"])}">Tümünü gör</a></div>
 <div class="grid">{"".join(pcard(x) for x in related)}</div></div></section>'''
-        page(p["url"], p["name"], "%s. %s" % (p["name"], p["short"]), body, "urunler.html")
+        ims = imgs(p)
+        prod = {"@type": "Product", "name": p["name"], "sku": p["code"], "mpn": p["code"], "category": c["name"],
+                "description": clip(" ".join(p["intro"]) or p["short"], 400), "brand": {"@type": "Brand", "name": SITE["brand"]},
+                "image": [SITE["domain"] + "/img/urunler/" + i for i in ims], "url": SITE["domain"] + "/" + p["url"]}
+        if p.get("color"): prod["color"] = p["color"]
+        page(p["url"], p["name"], "%s. %s" % (p["name"], p["short"]), body, "urunler.html",
+             ld=[prod, crumb_ld([("urunler.html", "Ürünler"), (cat_url(c["slug"]), c["name"]), (p["url"], p["code"])])],
+             image=(SITE["domain"] + "/img/urunler/" + ims[0]) if ims else None,
+             keywords="%s, %s, %s, EKED, LOTO, lockout tagout" % (p["code"], p["name"].split(" – ")[0].replace(p["code"] + " ", ""), c["name"]), og_type="product")
 
 def build_about():
     body = f'''{band([("", "Kurumsal")], "Kurumsal · Lockout Turkey", "Biz kimiz?")}
@@ -408,7 +468,7 @@ def build_about():
 <div class="prose"><p style="font-size:20px;color:var(--ink)">Lockout Turkey, iş sağlığı ve güvenliği alanında kilitleme ve etiketleme (EKED / LOTO) ekipmanları sunan bir markadır. Bakım, onarım ve temizlik sırasında makinelerin beklenmedik şekilde çalışmasını önleyen ekipmanları işletmelere tek noktadan tedarik ediyoruz.</p>
 <p>Temel hedefimiz; çalışan güvenliğini artırmak, iş kazalarını önlemek ve işletmelerin LOTO uygulamalarını doğru ekipmanla, uluslararası standartlara uygun şekilde kurmasına yardımcı olmaktır.</p>
 <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:8px"><a class="btn btn-red" href="urunler.html">Ürünlerimiz</a><a class="btn btn-line" href="{CATALOG_PDF}" target="_blank" rel="noopener">Katalog (PDF)</a></div></div>
-<div class="hero-card" style="box-shadow:0 24px 60px rgba(20,20,20,.12)">{"".join('<a href="%s" aria-label="%s">%s</a>' % (x["url"], e(x["name"]), img(x, alt="")) for x in (P("LT-X02CY"), P("LT-G13"), P("LT-K42")))}</div></div></section>
+<div class="hero-card" style="box-shadow:0 24px 60px rgba(20,20,20,.12)">{"".join('<a href="%s" aria-label="%s">%s</a>' % (x["url"], e(x["name"]), img(x)) for x in (P("LT-X02CY"), P("LT-G13"), P("LT-K42")))}</div></div></section>
 <section class="wrap"><div class="stats"><div><b>{len(PROD)}</b><span>ürün çeşidi</span></div><div><b>{len(CATEGORIES)}</b><span>ürün grubu</span></div><div><b>8 renk</b><span>emniyet asma kilidi</span></div><div><b>OSHA</b><span>29 CFR 1910.147 uyumlu ürünler</span></div></div></section>
 <section class="sec"><div class="wrap mv">
 <div><span class="kicker" style="color:#FFFFFF">Misyon</span><h2>Misyonumuz</h2><p>İşletmelerin enerji izolasyonu ihtiyaçlarına doğru, dayanıklı ve kullanımı kolay kilitleme ve etiketleme çözümleri sunmak.</p><p>Her teklifte yalnızca ürünü değil, ürünün doğru noktada doğru şekilde kullanılmasını da önemsemek.</p></div>
@@ -426,7 +486,7 @@ def build_about():
 <div class="cats">{"".join(cat_card(c, i + 1) for i, c in enumerate(CATEGORIES))}</div></div></section>
 <section class="sec"><div class="wrap"><div class="sec-head"><div><span class="kicker">İletişim</span><h2 class="t2">Size destek olmak için buradayız.</h2></div></div>
 <div class="two">{contact_form()}{info_card("Merkez")}</div></div></section>'''
-    page("kurumsal.html", "Kurumsal", "Lockout Turkey hakkında: biz kimiz, misyonumuz, vizyonumuz ve değerlerimiz.", body, "kurumsal.html")
+    page("kurumsal.html", "Kurumsal – Hakkımızda", "Lockout Turkey hakkında: biz kimiz, misyonumuz, vizyonumuz ve değerlerimiz.", body, "kurumsal.html")
 
 def build_guide():
     steps = "".join('<div class="step"><span class="n">%02d</span><b>%s</b><p>%s</p></div>' % (i + 1, e(t), e(d)) for i, (t, d) in enumerate(STEPS))
@@ -448,14 +508,14 @@ def build_guide():
 <p>LOTO prosedürlerinin temel referansı ABD İş Güvenliği ve Sağlığı İdaresi'nin <b>OSHA 29 CFR 1910.147</b> standardıdır. Türkiye'de <b>6331 sayılı İş Sağlığı ve Güvenliği Kanunu</b> işverene risk değerlendirmesi yapma ve tehlikelere karşı önlem alma yükümlülüğü getirir; bakım ve onarım sırasında tehlikeli enerjinin kontrolü bu önlemlerin başında gelir.</p>
 <p class="muted" style="font-size:16px">Bu sayfa genel bilgilendirme amaçlıdır; tesisinize özel prosedür iş güvenliği uzmanınızla birlikte hazırlanmalıdır.</p></article></div></section>
 {faq(FAQ)}{cta()}'''
-    page("loto-rehberi.html", "LOTO Rehberi", "EKED / LOTO nedir, hangi enerjiler kilitlenir, 7 adımlık prosedür, kilit kuralları, grup kilitleme ve mevzuat.", body, "loto-rehberi.html")
+    page("loto-rehberi.html", "LOTO Rehberi – Kilitleme ve Etiketleme", "EKED / LOTO nedir, hangi enerjiler kilitlenir, 7 adımlık prosedür, kilit kuralları, grup kilitleme ve mevzuat.", body, "loto-rehberi.html")
 
 def build_blog():
     first = POSTS[0]
     body = f'''{band([("", "Blog")], "Blog", "Güvenli çalışma notları", "Ürün seçimi, prosedür ve saha uygulamaları hakkında kısa ve uygulanabilir yazılar.")}
 <section class="sec"><div class="wrap"><div class="posts">{"".join(post_card(p) for p in POSTS[:6])}</div>
 {('<div class="posts" style="margin-top:18px">%s</div>' % "".join(post_card(p) for p in POSTS[6:])) if len(POSTS) > 6 else ''}</div></section>{cta()}'''
-    page("blog.html", "Blog", "Lockout Turkey blog: LOTO ürün seçimi, prosedür ve saha uygulamaları.", body, "blog.html")
+    page("blog.html", "Blog – LOTO ve İş Güvenliği Yazıları", "Lockout Turkey blog: emniyet asma kilidi seçimi, grup kilitleme, vana ve şalter kilitleme, LOTO istasyonu ve EKED etiketleri üzerine uygulama yazıları.", body, "blog.html", ld=[crumb_ld([("blog.html", "Blog")])])
     for p in POSTS:
         others = [x for x in POSTS if x is not p][:3]
         prods = [P(c) for c in p["products"]][:4]
@@ -467,12 +527,18 @@ def build_blog():
 <a class="btn btn-red" style="align-self:flex-start" href="{wa("Merhaba, " + p["title"] + " yazınızı okudum, bilgi almak istiyorum.")}" target="_blank" rel="noopener">WhatsApp’tan yazın</a></div></div></section>
 <section class="sec sec-soft"><div class="wrap"><div class="sec-head"><div><span class="kicker">Yazıda geçen ürünler</span><h2 class="t2">İlgili ürünler</h2></div></div><div class="grid">{"".join(pcard(x) for x in prods)}</div></div></section>
 <section class="sec"><div class="wrap"><div class="sec-head"><div><span class="kicker">Blog</span><h2 class="t2">Diğer yazılar</h2></div><a class="btn btn-line" href="blog.html">Tüm yazılar</a></div><div class="posts">{"".join(post_card(x) for x in others)}</div></div></section>'''
-        page(post_url(p), p["title"], p["summary"], body, "blog.html")
+        page(post_url(p), p["title"], p["summary"], body, "blog.html", og_type="article",
+             ld=[{"@type": "BlogPosting", "headline": p["title"], "description": p["summary"], "datePublished": p["date"], "dateModified": p["date"],
+                  "inLanguage": "tr-TR", "image": SITE["domain"] + "/img/urunler/" + (imgs(P(p["cover"])) or [""])[0],
+                  "author": {"@type": "Organization", "name": SITE["brand"]}, "publisher": {"@id": SITE["domain"] + "/#firma"},
+                  "mainEntityOfPage": SITE["domain"] + "/" + post_url(p)},
+                 crumb_ld([("blog.html", "Blog"), (post_url(p), p["title"])])],
+             image=SITE["domain"] + "/img/urunler/" + (imgs(P(p["cover"])) or [""])[0])
 
 def build_contact():
     body = f'''{band([("", "İletişim")], "İletişim", "Size destek olmak için buradayız.", "Ürün kodu, fotoğraf ya da sadece ihtiyacınızı yazın; size dönüş yapalım.")}
 <section class="sec"><div class="wrap two">{contact_form()}{info_card()}</div></section>'''
-    page("iletisim.html", "İletişim", "Lockout Turkey iletişim bilgileri: telefon, WhatsApp, e-posta ve adres.", body, "iletisim.html")
+    page("iletisim.html", "İletişim – Teklif ve Ürün Danışmanlığı", "Lockout Turkey iletişim bilgileri: telefon, WhatsApp, e-posta ve Ümraniye / İstanbul adresi. LOTO ürünleri için hızlı teklif alın.", body, "iletisim.html")
 
 I_WA_SM = WA_ICON.replace('width="28" height="28"', 'width="22" height="22"')
 def build_cart():
@@ -503,6 +569,13 @@ def build_cart():
 </div></div></section>'''
     page("teklif.html", "Teklif Sepeti", "Seçtiğiniz LOTO ürünleri için teklif talebi oluşturun.", body, "")
 
+def build_404():
+    body = f'''<section class="sec"><div class="wrap" style="display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center">
+<span class="kicker">Hata 404</span><h1 class="t1">Aradığınız sayfa bulunamadı.</h1>
+<p class="lead">Sayfa taşınmış ya da adres yanlış yazılmış olabilir. Ürünlere göz atabilir veya bize doğrudan yazabilirsiniz.</p>
+<div class="hero-actions" style="justify-content:center"><a class="btn btn-red" href="/">Anasayfaya dön</a><a class="btn btn-line" href="/urunler.html">Tüm ürünler</a></div></div></section>'''
+    page("404.html", "Sayfa bulunamadı", "Aradığınız sayfa bulunamadı. Lockout Turkey EKED / LOTO ürünlerine anasayfadan ulaşabilirsiniz.", body, "")
+
 def build_kvkk():
     owner = SITE.get("legal_name") or SITE["brand"]
     body = f'''{band([("", "KVKK ve gizlilik")], "Yasal", "KVKK ve gizlilik")}
@@ -516,20 +589,26 @@ def build_kvkk():
 <h2>Haklarınız</h2><p>Kanun'un 11. maddesi uyarınca verilerinizin işlenip işlenmediğini öğrenme, bilgi talep etme, düzeltilmesini veya silinmesini isteme, aktarıldığı kişileri öğrenme ve işlemeye itiraz etme haklarına sahipsiniz. Taleplerinizi {e(SITE["email"])} adresine iletebilirsiniz.</p>
 <h2>Çerezler ve tarayıcı depolama</h2><p>Bu site reklam veya takip çerezi kullanmaz. Yazı tipleri Google Fonts üzerinden yüklenir. Teklif sepetiniz yalnızca kendi tarayıcınızda saklanır ve siz göndermedikçe bize ulaşmaz.</p>
 </article></div></section>'''
-    page("kvkk.html", "KVKK ve Gizlilik", "Lockout Turkey KVKK aydınlatma metni ve gizlilik bilgileri.", body, "")
+    page("kvkk.html", "KVKK Aydınlatma Metni ve Gizlilik", "Lockout Turkey KVKK aydınlatma metni ve gizlilik bilgileri.", body, "")
 
 def write_assets():
-    shutil.copy(os.path.join(HERE, "style.css"), os.path.join(OUT, "style.css"))
+    css = open(os.path.join(HERE, "style.css"), encoding="utf-8").read()
+    css = re.sub(r"/\*.*?\*/", "", css, flags=re.S)
+    css = re.sub(r"\s+", " ", css)
+    css = re.sub(r"\s*([{};:,>])\s*", r"\1", css).replace(";}", "}")
+    open(os.path.join(OUT, "style.css"), "w", encoding="utf-8").write(css.strip())
     shutil.copy(os.path.join(HERE, "app.js"), os.path.join(OUT, "app.js"))
     shutil.copy(os.path.join(HERE, "extra.js"), os.path.join(OUT, "extra.js"))
     data = {"site": {k: SITE[k] for k in ("whatsapp_num", "email")}, "icons": {},
             "products": {i: {"name": p["name"], "code": p["code"], "cat": CAT[p["cat"]]["name"], "url": p["url"], "img": (imgs(p) or [""])[0]} for i, p in PROD.items()},
             "points": POINTS, "refs": REF_IDS}
     open(os.path.join(OUT, "data.js"), "w", encoding="utf-8").write("window.BOSS = " + json.dumps(data, ensure_ascii=False) + ";\n")
+    st = os.path.join(HERE, "static")
+    for f in os.listdir(st): shutil.copy(os.path.join(st, f), os.path.join(OUT, f))
     open(os.path.join(OUT, "favicon.svg"), "w", encoding="utf-8").write('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="16" fill="#D0121F"/><path d="M11.5 14.5V11a4.5 4.5 0 0 1 9 0v3.5" fill="none" stroke="#fff" stroke-width="2.8" stroke-linecap="round"/><rect x="8" y="13.5" width="16" height="12" rx="3" fill="#fff"/></svg>')
     open(os.path.join(OUT, "robots.txt"), "w").write("User-agent: *\nAllow: /\nSitemap: %s/sitemap.xml\n" % SITE["domain"])
     today = date.today().isoformat()
-    urls = "".join("<url><loc>%s/%s</loc><lastmod>%s</lastmod></url>" % (SITE["domain"], "" if p == "index.html" else p, today) for p in PAGES if p != "teklif.html")
+    urls = "".join("<url><loc>%s/%s</loc><lastmod>%s</lastmod></url>" % (SITE["domain"], "" if p == "index.html" else p, today) for p in PAGES if p not in ("teklif.html", "404.html"))
     open(os.path.join(OUT, "sitemap.xml"), "w").write('<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">%s</urlset>' % urls)
 
 if __name__ == "__main__":
@@ -539,5 +618,5 @@ if __name__ == "__main__":
         path = os.path.join(OUT, name)
         shutil.rmtree(path) if os.path.isdir(path) else os.remove(path)
     build_index(); build_set_page(); build_products(); build_categories(); build_product_pages(); build_about(); build_guide()
-    build_blog(); build_contact(); build_cart(); build_kvkk(); write_assets()
+    build_blog(); build_contact(); build_cart(); build_kvkk(); build_404(); write_assets()
     print("%d sayfa üretildi → %s" % (len(PAGES), os.path.normpath(OUT)))

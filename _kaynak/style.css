@@ -7,7 +7,7 @@
   --ink: #141414;
   --ink-2: #2B2B2B;
   --muted: #63605E;
-  --faint: #8C8783;
+  --faint: #6F6A66;
   --line: #E6E2DF;
   --soft: #F5F3F1;
   --paper: #FFFFFF;
@@ -17,7 +17,7 @@
   --on-dark-muted: #B5ADA7;
   --head: 'Saira', 'Arial Narrow', Arial, sans-serif;
   --body: 'Source Sans 3', 'Helvetica Neue', Arial, sans-serif;
-  --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+  --mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, 'Roboto Mono', 'Liberation Mono', monospace;
   --logo: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
   --r: 18px;
   --tape: repeating-linear-gradient(-45deg, var(--red) 0 14px, #FFFFFF 14px 28px);
@@ -626,3 +626,11 @@ h1, h2, h3 { font-family: var(--head); text-wrap: balance; }
   .quote-card { position: static; border-radius: 20px; }
   .qc-head, .qc-body { padding-inline: 18px; }
 }
+
+/* erişilebilirlik kontrast düzeltmeleri */
+.sec-dark .kicker { color: #FF7A82; }
+.sec-dark .kicker::before { background: #FF7A82; }
+.footer .btn-red, .footer .btn-red:hover { color: #FFFFFF; }
+/* performans: ekran dışı kartları sonradan çiz */
+.grid .pc { content-visibility: auto; contain-intrinsic-size: auto 430px; }
+.posts .post-c, .cats .cat { content-visibility: auto; contain-intrinsic-size: auto 360px; }

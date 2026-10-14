@@ -118,7 +118,7 @@
       $('[data-f="tip"]', panel).textContent = current.tip;
       $('[data-f="list"]', panel).innerHTML = current.products.map(function (id) {
         var p = D.products[id];
-        return '<a class="panel-item" href="' + esc(p.url) + '"><span class="thumb">' + (p.img ? '<img src="img/urunler/' + esc(p.img) + '" alt="" loading="lazy">' : (D.icons[p.icon] || '')) + '</span><span><b>' + esc(p.name) + '</b><small>' + esc(p.code + ' · ' + p.cat) + '</small></span></a>';
+        return '<a class="panel-item" href="' + esc(p.url) + '"><span class="thumb">' + (p.img ? '<img src="img/urunler/' + esc(p.img.replace(/\.webp$/, "-160.webp")) + '" alt="' + esc(p.name) + '" width="160" height="160" loading="lazy">' : (D.icons[p.icon] || '')) + '</span><span><b>' + esc(p.name) + '</b><small>' + esc(p.code + ' · ' + p.cat) + '</small></span></a>';
       }).join('');
     }
     $$('.pt-chip').forEach(function (c) { c.addEventListener('click', function () { show(c.getAttribute('data-point')); if (window.innerWidth < 760) panel.scrollIntoView({ behavior: 'smooth', block: 'start' }); }); });
@@ -260,7 +260,7 @@
       total += it.qty;
       var p = (it.id && D.products[it.id]) || null;
       var url = p ? p.url : '';
-      var thumb = p && p.img ? '<img src="img/urunler/' + esc(p.img) + '" alt="" loading="lazy">' : '<span class="ci-ph"></span>';
+      var thumb = p && p.img ? '<img src="img/urunler/' + esc(p.img.replace(/\.webp$/, "-160.webp")) + '" alt="' + esc(p.name) + '" width="160" height="160" loading="lazy">' : '<span class="ci-ph"></span>';
       var name = url ? '<a href="' + esc(url) + '">' + esc(it.name) + '</a>' : esc(it.name);
       return '<div class="cart-item">' + (url ? '<a class="ci-img" href="' + esc(url) + '" tabindex="-1" aria-hidden="true">' + thumb + '</a>' : '<span class="ci-img">' + thumb + '</span>') +
         '<div class="ci-tx">' + (p ? '<span class="ci-code">' + esc(p.code) + '</span>' : '') + '<b>' + name + '</b></div>' +
