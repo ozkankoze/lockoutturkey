@@ -3,7 +3,7 @@
 
 SITE = {
     "brand": "Lockout Turkey",
-    "domain": "https://lockoutturkey.com",
+    "domain": "https://www.lockoutturkey.com",
     "phone": "0505 499 97 32",
     "phone_tel": "+905054999732",
     "whatsapp": "0505 499 97 32",
